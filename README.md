@@ -21,7 +21,7 @@ Utilizatorii să poată vizualiza rezultatele testelor de personalitate într-un
 Adminii să aibă acces la rapoarte despre recenziile oferite de utilizatori privind satisfacția recomandărilor de job-uri făcute
 
 # Use Case Diagram
-![image](https://drive.google.com/drive/u/0/folders/1kPcQPdSxHoKuWAF2GODNjC55BMY5LLde)
+![image]([https://drive.google.com/drive/u/0/folders/1kPcQPdSxHoKuWAF2GODNjC55BMY5LLde](https://github.com/DutuMaria/FindMyPath/blob/main/use_case_diagram.png))
 
 # User Stories
 ## User stories inițiale
