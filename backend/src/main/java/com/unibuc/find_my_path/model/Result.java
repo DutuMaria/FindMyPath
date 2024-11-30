@@ -16,7 +16,7 @@ import java.util.List;
 public class Result {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int resultId;
+    private long resultId;
 
     private int compatibilityPercentage;
 
