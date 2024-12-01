@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/answers")
+@RequestMapping("/api/answers")
 @RequiredArgsConstructor
 public class AnswerController {
     private final AnswerService answerService;
