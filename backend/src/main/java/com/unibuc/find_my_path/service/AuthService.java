@@ -4,6 +4,7 @@ import com.unibuc.find_my_path.dto.LoginRequest;
 import com.unibuc.find_my_path.dto.RegisterRequest;
 import com.unibuc.find_my_path.model.FindMyPathUser;
 import com.unibuc.find_my_path.repository.FindMyPathUserRepository;
+import com.unibuc.find_my_path.security.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,9 @@ public class AuthService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private JwtUtil jwtUtil;
 
     public String register(RegisterRequest request) {
         Optional<FindMyPathUser> existingUser = userRepository.findByEmail(request.getEmail());
@@ -45,6 +49,6 @@ public class AuthService {
             throw new RuntimeException("Invalid credentials");
         }
 
-        return "Login successful";
+        return jwtUtil.generateToken(user.getEmail());
     }
 }
