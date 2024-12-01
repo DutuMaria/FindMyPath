@@ -3,6 +3,7 @@ package com.unibuc.find_my_path.controller;
 import com.unibuc.find_my_path.dto.LoginRequest;
 import com.unibuc.find_my_path.dto.RegisterRequest;
 import com.unibuc.find_my_path.service.AuthService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,7 +17,7 @@ public class AuthController {
     private AuthService authService;
 
     @PostMapping("/register")
-    public String register(@RequestBody RegisterRequest request) {
+    public String register(@RequestBody @Valid RegisterRequest request) {
         return authService.register(request);
     }
 
