@@ -1,7 +1,9 @@
 package com.unibuc.find_my_path.controller;
 
+import com.unibuc.find_my_path.dto.AnswerResponseDto;
 import com.unibuc.find_my_path.dto.QuestionResponseDto;
 import com.unibuc.find_my_path.dto.QuestionRequestDto;
+import com.unibuc.find_my_path.service.AnswerService;
 import com.unibuc.find_my_path.service.QuestionService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class QuestionController {
     private final QuestionService questionService;
+    private final AnswerService answerService;
 
     @GetMapping
     public ResponseEntity<List<QuestionResponseDto>> getAllQuestions() {
@@ -29,6 +32,15 @@ public class QuestionController {
     @GetMapping("/{id}")
     public ResponseEntity<QuestionResponseDto> getQuestionById(@PathVariable int id) {
         QuestionResponseDto response = questionService.getQuestionById(id);
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(response);
+    }
+
+    @GetMapping("/{id}/answers")
+    public ResponseEntity<List<AnswerResponseDto>> getAnswersByQuestionId(@PathVariable int id) {
+        List<AnswerResponseDto> response = answerService.getAnswersByQuestionId(id);
 
         return ResponseEntity
                 .status(HttpStatus.OK)
