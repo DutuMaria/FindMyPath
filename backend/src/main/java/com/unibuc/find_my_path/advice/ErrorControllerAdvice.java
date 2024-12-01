@@ -38,4 +38,11 @@ public class ErrorControllerAdvice {
                 .status(HttpStatus.NOT_FOUND)
                 .body(exception.getMessage());
     }
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<String> handleRuntimeException(RuntimeException exception) {
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(exception.getMessage());
+    }
 }
