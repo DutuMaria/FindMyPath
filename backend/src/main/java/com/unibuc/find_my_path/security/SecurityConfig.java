@@ -30,6 +30,7 @@ public class SecurityConfig {
                         configurer
                                 .requestMatchers("/api/auth/register").permitAll()
                                 .requestMatchers("/api/auth/login").permitAll()
+                                .requestMatchers("/api/user/delete").authenticated()
                                 .anyRequest().authenticated() // all other endpoints require authentication
 
 
