@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/features/auth/ui/widgets/custom_text_form_input.dart';
 import 'package:frontend/utils/custom_colors.dart';
+import '../logic/auth_service.dart';
 import 'log_in_screen.dart';
+import 'package:frontend/models/auth.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -44,6 +46,29 @@ class _SignUpScreenState extends State<SignUpScreen> {
           emailController.text.isNotEmpty &&
           passwordController.text.isNotEmpty;
     });
+  }
+
+  void _registerUser() {
+    final registerRequest = RegisterRequest(
+      firstName: firstNameController.text,
+      lastName: lastNameController.text,
+      email: emailController.text,
+      password: passwordController.text,
+    );
+
+    AuthService().registerUser(
+      context: context,
+      model: registerRequest,
+      password: passwordController.text,
+      onSuccess: () {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const LogInScreen(),
+          ),
+        );
+      },
+    );
   }
 
   @override
@@ -111,16 +136,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           borderRadius: BorderRadius.circular(20.0),
                         ),
                       ),
-                      onPressed: isButtonEnabled
-                          ? () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const LogInScreen(),
-                                ),
-                              );
-                            }
-                          : null,
+                      onPressed: isButtonEnabled ? _registerUser : null, // Call _registerUser
                       child: const Text('Sign Up'),
                     ),
                     const SizedBox(height: 20.0),
