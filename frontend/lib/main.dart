@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/features/admin/ui/admin_screen.dart';
-import 'package:frontend/features/test_attempt/ui/test_attempt_screen.dart';
+import 'package:frontend/features/auth/ui/sign_up_screen.dart';
 import 'package:frontend/utils/custom_colors.dart';
 
 void main() {
@@ -18,7 +17,7 @@ class QuizApp extends StatelessWidget {
       //themeMode: ThemeMode.light,
       theme: GlobalThemeData.lightThemeData,
       darkTheme: GlobalThemeData.darkThemeData,
-      home: const AdminScreen(),
+      home: const SignUpScreen(),
     );
   }
 }
