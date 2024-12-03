@@ -7,10 +7,10 @@ part 'auth.g.dart';
 @freezed
 class RegisterRequest with _$RegisterRequest {
   factory RegisterRequest({
-    @JsonKey(name: 'first_name') required String firstName,
-    @JsonKey(name: 'last_name') required String lastName,
-    @JsonKey(name: 'email') required String email,
-    @JsonKey(name: 'password') required String password,
+    required String firstName,
+    required String lastName,
+    required String email,
+    required String password,
   }) = _RegisterRequest;
 
   factory RegisterRequest.fromJson(Map<String, dynamic> json) =>
@@ -20,8 +20,8 @@ class RegisterRequest with _$RegisterRequest {
 @freezed
 class LoginRequest with _$LoginRequest {
   factory LoginRequest({
-    @JsonKey(name: 'email') required String email,
-    @JsonKey(name: 'password') required int password,
+    required String email,
+    required int password,
   }) = _LoginRequest;
 
   factory LoginRequest.fromJson(Map<String, dynamic> json) =>

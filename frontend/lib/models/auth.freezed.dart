@@ -20,13 +20,9 @@ RegisterRequest _$RegisterRequestFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$RegisterRequest {
-  @JsonKey(name: 'first_name')
   String get firstName => throw _privateConstructorUsedError;
-  @JsonKey(name: 'last_name')
   String get lastName => throw _privateConstructorUsedError;
-  @JsonKey(name: 'email')
   String get email => throw _privateConstructorUsedError;
-  @JsonKey(name: 'password')
   String get password => throw _privateConstructorUsedError;
 
   /// Serializes this RegisterRequest to a JSON map.
@@ -45,11 +41,7 @@ abstract class $RegisterRequestCopyWith<$Res> {
           RegisterRequest value, $Res Function(RegisterRequest) then) =
       _$RegisterRequestCopyWithImpl<$Res, RegisterRequest>;
   @useResult
-  $Res call(
-      {@JsonKey(name: 'first_name') String firstName,
-      @JsonKey(name: 'last_name') String lastName,
-      @JsonKey(name: 'email') String email,
-      @JsonKey(name: 'password') String password});
+  $Res call({String firstName, String lastName, String email, String password});
 }
 
 /// @nodoc
@@ -101,11 +93,7 @@ abstract class _$$RegisterRequestImplCopyWith<$Res>
       __$$RegisterRequestImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {@JsonKey(name: 'first_name') String firstName,
-      @JsonKey(name: 'last_name') String lastName,
-      @JsonKey(name: 'email') String email,
-      @JsonKey(name: 'password') String password});
+  $Res call({String firstName, String lastName, String email, String password});
 }
 
 /// @nodoc
@@ -151,25 +139,21 @@ class __$$RegisterRequestImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$RegisterRequestImpl implements _RegisterRequest {
   _$RegisterRequestImpl(
-      {@JsonKey(name: 'first_name') required this.firstName,
-      @JsonKey(name: 'last_name') required this.lastName,
-      @JsonKey(name: 'email') required this.email,
-      @JsonKey(name: 'password') required this.password});
+      {required this.firstName,
+      required this.lastName,
+      required this.email,
+      required this.password});
 
   factory _$RegisterRequestImpl.fromJson(Map<String, dynamic> json) =>
       _$$RegisterRequestImplFromJson(json);
 
   @override
-  @JsonKey(name: 'first_name')
   final String firstName;
   @override
-  @JsonKey(name: 'last_name')
   final String lastName;
   @override
-  @JsonKey(name: 'email')
   final String email;
   @override
-  @JsonKey(name: 'password')
   final String password;
 
   @override
@@ -215,26 +199,21 @@ class _$RegisterRequestImpl implements _RegisterRequest {
 
 abstract class _RegisterRequest implements RegisterRequest {
   factory _RegisterRequest(
-          {@JsonKey(name: 'first_name') required final String firstName,
-          @JsonKey(name: 'last_name') required final String lastName,
-          @JsonKey(name: 'email') required final String email,
-          @JsonKey(name: 'password') required final String password}) =
-      _$RegisterRequestImpl;
+      {required final String firstName,
+      required final String lastName,
+      required final String email,
+      required final String password}) = _$RegisterRequestImpl;
 
   factory _RegisterRequest.fromJson(Map<String, dynamic> json) =
       _$RegisterRequestImpl.fromJson;
 
   @override
-  @JsonKey(name: 'first_name')
   String get firstName;
   @override
-  @JsonKey(name: 'last_name')
   String get lastName;
   @override
-  @JsonKey(name: 'email')
   String get email;
   @override
-  @JsonKey(name: 'password')
   String get password;
 
   /// Create a copy of RegisterRequest
@@ -251,9 +230,7 @@ LoginRequest _$LoginRequestFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$LoginRequest {
-  @JsonKey(name: 'email')
   String get email => throw _privateConstructorUsedError;
-  @JsonKey(name: 'password')
   int get password => throw _privateConstructorUsedError;
 
   /// Serializes this LoginRequest to a JSON map.
@@ -272,9 +249,7 @@ abstract class $LoginRequestCopyWith<$Res> {
           LoginRequest value, $Res Function(LoginRequest) then) =
       _$LoginRequestCopyWithImpl<$Res, LoginRequest>;
   @useResult
-  $Res call(
-      {@JsonKey(name: 'email') String email,
-      @JsonKey(name: 'password') int password});
+  $Res call({String email, int password});
 }
 
 /// @nodoc
@@ -316,9 +291,7 @@ abstract class _$$LoginRequestImplCopyWith<$Res>
       __$$LoginRequestImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {@JsonKey(name: 'email') String email,
-      @JsonKey(name: 'password') int password});
+  $Res call({String email, int password});
 }
 
 /// @nodoc
@@ -353,18 +326,14 @@ class __$$LoginRequestImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$LoginRequestImpl implements _LoginRequest {
-  _$LoginRequestImpl(
-      {@JsonKey(name: 'email') required this.email,
-      @JsonKey(name: 'password') required this.password});
+  _$LoginRequestImpl({required this.email, required this.password});
 
   factory _$LoginRequestImpl.fromJson(Map<String, dynamic> json) =>
       _$$LoginRequestImplFromJson(json);
 
   @override
-  @JsonKey(name: 'email')
   final String email;
   @override
-  @JsonKey(name: 'password')
   final int password;
 
   @override
@@ -404,18 +373,15 @@ class _$LoginRequestImpl implements _LoginRequest {
 
 abstract class _LoginRequest implements LoginRequest {
   factory _LoginRequest(
-          {@JsonKey(name: 'email') required final String email,
-          @JsonKey(name: 'password') required final int password}) =
-      _$LoginRequestImpl;
+      {required final String email,
+      required final int password}) = _$LoginRequestImpl;
 
   factory _LoginRequest.fromJson(Map<String, dynamic> json) =
       _$LoginRequestImpl.fromJson;
 
   @override
-  @JsonKey(name: 'email')
   String get email;
   @override
-  @JsonKey(name: 'password')
   int get password;
 
   /// Create a copy of LoginRequest

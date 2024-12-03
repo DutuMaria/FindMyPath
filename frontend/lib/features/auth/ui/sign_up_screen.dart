@@ -59,7 +59,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
     AuthService().registerUser(
       context: context,
       model: registerRequest,
-      password: passwordController.text,
       onSuccess: () {
         Navigator.pushReplacement(
           context,

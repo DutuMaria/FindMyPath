@@ -5,12 +5,11 @@ import 'package:http/http.dart' as http;
 import 'package:frontend/utils/error_handling.dart';
 
 class AuthService {
-  final String uri = 'http://ip:8080/api';
+  final String uri = 'http://192.168.80.43:8080/api';
 
   Future<void> registerUser({
     required BuildContext context,
     required RegisterRequest model,
-    required String password,
     required VoidCallback onSuccess,
   }) async {
     try {
@@ -25,15 +24,14 @@ class AuthService {
       httpErrorHandle(
         response: res,
         context: context,
-        onSucces: () {},
+        onSucces: onSuccess,
       );
     } catch (e) {}
   }
 
   Future<void> loginUser({
     required BuildContext context,
-    required String email,
-    required String password,
+    required LoginRequest model,
     required VoidCallback onSuccess,
   }) async {
     try {
@@ -42,10 +40,7 @@ class AuthService {
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
-        body: jsonEncode({
-          'email': email,
-          'password': password,
-        }),
+        body: jsonEncode(model.toJson()),
       );
 
       httpErrorHandle(

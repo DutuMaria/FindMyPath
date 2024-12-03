@@ -9,8 +9,8 @@ part of 'auth.dart';
 _$RegisterRequestImpl _$$RegisterRequestImplFromJson(
         Map<String, dynamic> json) =>
     _$RegisterRequestImpl(
-      firstName: json['first_name'] as String,
-      lastName: json['last_name'] as String,
+      firstName: json['firstName'] as String,
+      lastName: json['lastName'] as String,
       email: json['email'] as String,
       password: json['password'] as String,
     );
@@ -18,8 +18,8 @@ _$RegisterRequestImpl _$$RegisterRequestImplFromJson(
 Map<String, dynamic> _$$RegisterRequestImplToJson(
         _$RegisterRequestImpl instance) =>
     <String, dynamic>{
-      'first_name': instance.firstName,
-      'last_name': instance.lastName,
+      'firstName': instance.firstName,
+      'lastName': instance.lastName,
       'email': instance.email,
       'password': instance.password,
     };
