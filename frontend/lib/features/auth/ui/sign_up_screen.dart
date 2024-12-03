@@ -30,14 +30,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
     passwordController.addListener(_updateButtonState);
   }
 
-  @override
-  void dispose() {
-    firstNameController.dispose();
-    lastNameController.dispose();
-    emailController.dispose();
-    passwordController.dispose();
-    super.dispose();
-  }
 
   void _updateButtonState() {
     setState(() {
@@ -135,7 +127,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           borderRadius: BorderRadius.circular(20.0),
                         ),
                       ),
-                      onPressed: isButtonEnabled ? _registerUser : null, // Call _registerUser
+                      onPressed: isButtonEnabled ? _registerUser : null,
                       child: const Text('Sign Up'),
                     ),
                     const SizedBox(height: 20.0),
@@ -159,5 +151,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    firstNameController.dispose();
+    lastNameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
   }
 }

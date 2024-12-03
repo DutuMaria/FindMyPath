@@ -21,7 +21,7 @@ class RegisterRequest with _$RegisterRequest {
 class LoginRequest with _$LoginRequest {
   factory LoginRequest({
     required String email,
-    required int password,
+    required String password,
   }) = _LoginRequest;
 
   factory LoginRequest.fromJson(Map<String, dynamic> json) =>

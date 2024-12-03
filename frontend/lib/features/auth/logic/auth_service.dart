@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:frontend/utils/error_handling.dart';
 
 class AuthService {
-  final String uri = 'http://localhost:8080/api';
+  final String uri = 'http://192.168.80.43:8080/api';
 
   Future<void> registerUser({
     required BuildContext context,
@@ -48,7 +48,7 @@ class AuthService {
       httpErrorHandle(
         response: res,
         context: context,
-        onSucces: () {},
+        onSucces: onSuccess,
       );
     } catch (e) {
       // Handle error (e.g., showSnackBar)

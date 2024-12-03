@@ -27,7 +27,7 @@ Map<String, dynamic> _$$RegisterRequestImplToJson(
 _$LoginRequestImpl _$$LoginRequestImplFromJson(Map<String, dynamic> json) =>
     _$LoginRequestImpl(
       email: json['email'] as String,
-      password: (json['password'] as num).toInt(),
+      password: json['password'] as String,
     );
 
 Map<String, dynamic> _$$LoginRequestImplToJson(_$LoginRequestImpl instance) =>

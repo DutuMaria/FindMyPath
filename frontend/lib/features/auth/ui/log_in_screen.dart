@@ -3,7 +3,9 @@ import 'package:frontend/features/auth/ui/sign_up_screen.dart';
 import 'package:frontend/features/auth/ui/widgets/custom_text_form_input.dart';
 import 'package:frontend/features/dashboard/ui/dashboard_screen.dart';
 
+import '../../../models/auth.dart';
 import '../../../utils/custom_colors.dart';
+import '../logic/auth_service.dart';
 
 class LogInScreen extends StatefulWidget {
   const LogInScreen({super.key});
@@ -30,6 +32,26 @@ class _LogInScreenState extends State<LogInScreen> {
       isButtonEnabled =
           emailController.text.isNotEmpty && passwordController.text.isNotEmpty;
     });
+  }
+
+  void _loginUser() {
+    final loginRequest = LoginRequest(
+      email: emailController.text,
+      password: passwordController.text,
+    );
+
+    AuthService().loginUser(
+      context: context,
+      model: loginRequest,
+      onSuccess: () {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const DashboardScreen(),
+          ),
+        );
+      },
+    );
   }
 
   @override
@@ -85,17 +107,7 @@ class _LogInScreenState extends State<LogInScreen> {
                             borderRadius: BorderRadius.circular(20.0),
                           ),
                         ),
-                        onPressed: isButtonEnabled
-                            ? () {
-                                Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        const DashboardScreen(),
-                                  ),
-                                );
-                              }
-                            : null,
+                        onPressed: isButtonEnabled ? _loginUser : null,
                         child: const Text('Log In'),
                       ),
                       const SizedBox(height: 100.0),
