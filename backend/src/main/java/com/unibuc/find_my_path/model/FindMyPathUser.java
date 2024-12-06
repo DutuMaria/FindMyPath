@@ -17,7 +17,6 @@ import java.util.UUID;
 public class FindMyPathUser {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID userId;
 
     private String passwordHash;
