@@ -1,9 +1,26 @@
-import 'package:flutter/material.dart';
-import 'package:frontend/features/auth/ui/sign_up_screen.dart';
-import 'package:frontend/utils/custom_colors.dart';
+import 'dart:async';
 
-void main() {
-  runApp(const QuizApp());
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:frontend/features/splash_screen/splash_screen.dart';
+import 'package:frontend/utils/custom_colors.dart';
+import 'package:frontend/utils/service_locator.dart';
+
+void main() async {
+  await runZonedGuarded(
+    () async {
+      WidgetsFlutterBinding.ensureInitialized();
+      setupServiceLocator();
+      SystemChrome.setPreferredOrientations([
+        DeviceOrientation.portraitUp,
+      ]).then(
+        (_) => runApp(
+          const QuizApp(),
+        ),
+      );
+    },
+    (error, stack) {},
+  );
 }
 
 class QuizApp extends StatelessWidget {
@@ -17,7 +34,7 @@ class QuizApp extends StatelessWidget {
       //themeMode: ThemeMode.light,
       theme: GlobalThemeData.lightThemeData,
       darkTheme: GlobalThemeData.darkThemeData,
-      home: const SignUpScreen(),
+      home: const SplashScreen(),
     );
   }
 }
