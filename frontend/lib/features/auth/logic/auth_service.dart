@@ -20,9 +20,7 @@ class AuthService {
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
-        body: jsonEncode(
-          model.toJson(),
-        ),
+        body: jsonEncode(model.toJson()),
       );
 
       httpErrorHandle(
@@ -46,9 +44,7 @@ class AuthService {
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
-        body: jsonEncode(
-          model.toJson(),
-        ),
+        body: jsonEncode(model.toJson()),
       );
 
       httpErrorHandle(
