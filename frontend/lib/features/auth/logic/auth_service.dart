@@ -9,8 +9,6 @@ import '../../../local_storage/storage_service.dart';
 import '../../../utils/service_locator.dart';
 
 class AuthService {
-  final String uri = 'http://192.168.68.106:8080/api';
-
   Future<void> registerUser({
     required BuildContext context,
     required RegisterRequest model,
@@ -18,11 +16,13 @@ class AuthService {
   }) async {
     try {
       http.Response res = await http.post(
-        Uri.parse('$uri/auth/register'),
+        Uri.parse('${GlobalVariables.serverUrl}/auth/register'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
-        body: jsonEncode(model.toJson()),
+        body: jsonEncode(
+          model.toJson(),
+        ),
       );
 
       httpErrorHandle(
@@ -42,22 +42,24 @@ class AuthService {
   }) async {
     try {
       http.Response res = await http.post(
-        Uri.parse('$uri/auth/login'),
+        Uri.parse('${GlobalVariables.serverUrl}/auth/login'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
-        body: jsonEncode(model.toJson()),
+        body: jsonEncode(
+          model.toJson(),
+        ),
       );
 
       httpErrorHandle(
         response: res,
         context: context,
         onSucces: () async {
-            final token = res.body;
-            final localPreferences = serviceLocator<LocalPreferences>();
-            await localPreferences.saveAuthToken(token);
-            GlobalVariables.authToken = token;
-            onSuccess();
+          final token = res.body;
+          final localPreferences = serviceLocator<LocalPreferences>();
+          await localPreferences.saveAuthToken(token);
+          GlobalVariables.authToken = token;
+          onSuccess();
         },
       );
     } catch (e) {
