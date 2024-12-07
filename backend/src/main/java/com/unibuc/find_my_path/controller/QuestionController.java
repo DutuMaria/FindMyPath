@@ -1,6 +1,7 @@
 package com.unibuc.find_my_path.controller;
 
 import com.unibuc.find_my_path.dto.AnswerResponseDto;
+import com.unibuc.find_my_path.dto.QuestionAnswerListDto;
 import com.unibuc.find_my_path.dto.QuestionResponseDto;
 import com.unibuc.find_my_path.dto.QuestionRequestDto;
 import com.unibuc.find_my_path.service.AnswerService;
@@ -23,6 +24,15 @@ public class QuestionController {
     @GetMapping
     public ResponseEntity<List<QuestionResponseDto>> getAllQuestions() {
         List<QuestionResponseDto> response = questionService.getAllQuestions();
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(response);
+    }
+
+    @GetMapping("/answer-list")
+    public ResponseEntity<List<QuestionAnswerListDto>> getAllQuestionsWithAnswers() {
+        List<QuestionAnswerListDto> response = questionService.getAllQuestionsWithAnswers();
 
         return ResponseEntity
                 .status(HttpStatus.OK)
