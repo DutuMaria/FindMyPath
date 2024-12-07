@@ -4,8 +4,12 @@ import 'package:frontend/models/auth.dart';
 import 'package:http/http.dart' as http;
 import 'package:frontend/utils/error_handling.dart';
 
+import '../../../global_variables.dart';
+import '../../../local_storage/storage_service.dart';
+import '../../../utils/service_locator.dart';
+
 class AuthService {
-  final String uri = 'http://192.168.80.43:8080/api';
+  final String uri = 'http://192.168.68.106:8080/api';
 
   Future<void> registerUser({
     required BuildContext context,
@@ -48,7 +52,13 @@ class AuthService {
       httpErrorHandle(
         response: res,
         context: context,
-        onSucces: onSuccess,
+        onSucces: () async {
+            final token = res.body;
+            final localPreferences = serviceLocator<LocalPreferences>();
+            await localPreferences.saveAuthToken(token);
+            GlobalVariables.authToken = token;
+            onSuccess();
+        },
       );
     } catch (e) {
       // Handle error (e.g., showSnackBar)
