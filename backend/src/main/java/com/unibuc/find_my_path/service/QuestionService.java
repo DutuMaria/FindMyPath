@@ -1,5 +1,7 @@
 package com.unibuc.find_my_path.service;
 
+import com.unibuc.find_my_path.dto.AnswerResponseDto;
+import com.unibuc.find_my_path.dto.QuestionAnswerListDto;
 import com.unibuc.find_my_path.dto.QuestionResponseDto;
 import com.unibuc.find_my_path.dto.QuestionRequestDto;
 import com.unibuc.find_my_path.model.Question;
@@ -34,6 +36,21 @@ public class QuestionService {
                 .collect(Collectors.toList());
     }
 
+    public List<QuestionAnswerListDto> getAllQuestionsWithAnswers() {
+        return questionRepository.findAll().stream()
+                .map(question -> new QuestionAnswerListDto(
+                        question.getQuestionId(),
+                        question.getQuestionText(),
+                        question.getAnswerList().stream()
+                                .map(answer -> new AnswerResponseDto(
+                                        answer.getAnswerId(),
+                                        answer.getAnswerText()
+                                ))
+                                .collect(Collectors.toList())
+                ))
+                .collect(Collectors.toList());
+    }
+
     public QuestionResponseDto addQuestion(QuestionRequestDto questionDto) {
         Question question = new Question();
         question.setQuestionText(questionDto.getQuestionText());
@@ -54,8 +71,6 @@ public class QuestionService {
 
         return new QuestionResponseDto(question.getQuestionId(), question.getQuestionText());
     }
-
-
 
     public void deleteQuestion(int questionId) {
         Optional<Question> question = questionRepository.findById(questionId);
