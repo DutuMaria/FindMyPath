@@ -34,12 +34,16 @@ class _SplashScreenState extends State<SplashScreen> {
         GlobalVariables.authToken = token;
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => const DashboardScreen()),
+          MaterialPageRoute(
+            builder: (context) => const DashboardScreen(),
+          ),
         );
       } else {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => const SignUpScreen()),
+          MaterialPageRoute(
+            builder: (context) => const SignUpScreen(),
+          ),
         );
       }
     });
