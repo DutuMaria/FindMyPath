@@ -7,14 +7,14 @@ part of 'answer.dart';
 // **************************************************************************
 
 _$AnswerImpl _$$AnswerImplFromJson(Map<String, dynamic> json) => _$AnswerImpl(
-      answerId: (json['answer_id'] as num).toInt(),
-      answerText: json['answer_text'] as String,
-      questionId: (json['question_id'] as num).toInt(),
+      answerId: (json['answerId'] as num).toInt(),
+      answerText: json['answerText'] as String,
+      questionId: (json['question_id'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$$AnswerImplToJson(_$AnswerImpl instance) =>
     <String, dynamic>{
-      'answer_id': instance.answerId,
-      'answer_text': instance.answerText,
+      'answerId': instance.answerId,
+      'answerText': instance.answerText,
       'question_id': instance.questionId,
     };

@@ -20,12 +20,12 @@ Answer _$AnswerFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Answer {
-  @JsonKey(name: 'answer_id')
+  @JsonKey(name: 'answerId')
   int get answerId => throw _privateConstructorUsedError;
-  @JsonKey(name: 'answer_text')
+  @JsonKey(name: 'answerText')
   String get answerText => throw _privateConstructorUsedError;
   @JsonKey(name: 'question_id')
-  int get questionId => throw _privateConstructorUsedError;
+  int? get questionId => throw _privateConstructorUsedError;
 
   /// Serializes this Answer to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -42,9 +42,9 @@ abstract class $AnswerCopyWith<$Res> {
       _$AnswerCopyWithImpl<$Res, Answer>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'answer_id') int answerId,
-      @JsonKey(name: 'answer_text') String answerText,
-      @JsonKey(name: 'question_id') int questionId});
+      {@JsonKey(name: 'answerId') int answerId,
+      @JsonKey(name: 'answerText') String answerText,
+      @JsonKey(name: 'question_id') int? questionId});
 }
 
 /// @nodoc
@@ -64,7 +64,7 @@ class _$AnswerCopyWithImpl<$Res, $Val extends Answer>
   $Res call({
     Object? answerId = null,
     Object? answerText = null,
-    Object? questionId = null,
+    Object? questionId = freezed,
   }) {
     return _then(_value.copyWith(
       answerId: null == answerId
@@ -75,10 +75,10 @@ class _$AnswerCopyWithImpl<$Res, $Val extends Answer>
           ? _value.answerText
           : answerText // ignore: cast_nullable_to_non_nullable
               as String,
-      questionId: null == questionId
+      questionId: freezed == questionId
           ? _value.questionId
           : questionId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
     ) as $Val);
   }
 }
@@ -91,9 +91,9 @@ abstract class _$$AnswerImplCopyWith<$Res> implements $AnswerCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'answer_id') int answerId,
-      @JsonKey(name: 'answer_text') String answerText,
-      @JsonKey(name: 'question_id') int questionId});
+      {@JsonKey(name: 'answerId') int answerId,
+      @JsonKey(name: 'answerText') String answerText,
+      @JsonKey(name: 'question_id') int? questionId});
 }
 
 /// @nodoc
@@ -111,7 +111,7 @@ class __$$AnswerImplCopyWithImpl<$Res>
   $Res call({
     Object? answerId = null,
     Object? answerText = null,
-    Object? questionId = null,
+    Object? questionId = freezed,
   }) {
     return _then(_$AnswerImpl(
       answerId: null == answerId
@@ -122,10 +122,10 @@ class __$$AnswerImplCopyWithImpl<$Res>
           ? _value.answerText
           : answerText // ignore: cast_nullable_to_non_nullable
               as String,
-      questionId: null == questionId
+      questionId: freezed == questionId
           ? _value.questionId
           : questionId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
     ));
   }
 }
@@ -134,22 +134,22 @@ class __$$AnswerImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$AnswerImpl implements _Answer {
   _$AnswerImpl(
-      {@JsonKey(name: 'answer_id') required this.answerId,
-      @JsonKey(name: 'answer_text') required this.answerText,
-      @JsonKey(name: 'question_id') required this.questionId});
+      {@JsonKey(name: 'answerId') required this.answerId,
+      @JsonKey(name: 'answerText') required this.answerText,
+      @JsonKey(name: 'question_id') this.questionId});
 
   factory _$AnswerImpl.fromJson(Map<String, dynamic> json) =>
       _$$AnswerImplFromJson(json);
 
   @override
-  @JsonKey(name: 'answer_id')
+  @JsonKey(name: 'answerId')
   final int answerId;
   @override
-  @JsonKey(name: 'answer_text')
+  @JsonKey(name: 'answerText')
   final String answerText;
   @override
   @JsonKey(name: 'question_id')
-  final int questionId;
+  final int? questionId;
 
   @override
   String toString() {
@@ -192,22 +192,21 @@ class _$AnswerImpl implements _Answer {
 
 abstract class _Answer implements Answer {
   factory _Answer(
-          {@JsonKey(name: 'answer_id') required final int answerId,
-          @JsonKey(name: 'answer_text') required final String answerText,
-          @JsonKey(name: 'question_id') required final int questionId}) =
-      _$AnswerImpl;
+      {@JsonKey(name: 'answerId') required final int answerId,
+      @JsonKey(name: 'answerText') required final String answerText,
+      @JsonKey(name: 'question_id') final int? questionId}) = _$AnswerImpl;
 
   factory _Answer.fromJson(Map<String, dynamic> json) = _$AnswerImpl.fromJson;
 
   @override
-  @JsonKey(name: 'answer_id')
+  @JsonKey(name: 'answerId')
   int get answerId;
   @override
-  @JsonKey(name: 'answer_text')
+  @JsonKey(name: 'answerText')
   String get answerText;
   @override
   @JsonKey(name: 'question_id')
-  int get questionId;
+  int? get questionId;
 
   /// Create a copy of Answer
   /// with the given fields replaced by the non-null parameter values.

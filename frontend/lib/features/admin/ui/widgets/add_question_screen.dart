@@ -28,7 +28,7 @@ class _AddQuestionScreenState extends State<AddQuestionScreen> {
   void initState() {
     super.initState();
     _questionNameController.text = widget.question.questionText;
-    _answerControllers = widget.question.answers
+    _answerControllers = widget.question.answers!
         .map((answer) => TextEditingController(text: answer.answerText))
         .toList();
   }
@@ -106,11 +106,11 @@ class _AddQuestionScreenState extends State<AddQuestionScreen> {
     if (_addQuestionKey.currentState!.validate()) {
       adminServices.editExistingQuestion(
         context: context,
-        questionId: widget.question.questionId,
-        questionText: _questionNameController.text,
-        answersControllerList: _answerControllers,
+        question: widget.question,
+        newQuestionText: _questionNameController.text,
+        newAnswersControllerList: _answerControllers,
         onSucces: () {
-          showSnackBar(context, "Question Saved Successfully");
+          showSnackBar(context, "Question Updated Successfully");
           Navigator.pop(context);
           widget.fetchQuestions();
         },

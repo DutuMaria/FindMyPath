@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/features/admin/ui/admin_screen.dart';
 import 'package:frontend/features/auth/ui/log_in_screen.dart';
 import 'package:frontend/features/auth/ui/sign_up_screen.dart';
 import 'package:frontend/features/dashboard/logic/dashboard_service.dart';
@@ -54,6 +55,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const AdminScreen(),
+                  ),
+                );
+              },
+              child: const Text('Admin Screen'),
+            ),
             TextButton(
               onPressed: () {
                 Navigator.push(

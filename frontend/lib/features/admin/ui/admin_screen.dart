@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:frontend/features/admin/logic/admin_services.dart';
 import 'package:frontend/features/admin/ui/widgets/add_question_screen.dart';
 import 'package:frontend/features/admin/ui/widgets/question_container.dart';
+import 'package:frontend/features/dashboard/ui/widgets/custom_app_bar.dart';
+import 'package:frontend/features/dashboard/ui/widgets/custom_back_button.dart';
 import 'package:frontend/models/answer.dart';
 import 'package:frontend/models/question.dart';
 
@@ -25,6 +27,14 @@ class _AdminScreenState extends State<AdminScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: CustomAppBar(
+        title: 'Admin Dashboard',
+        leadingIcon: CustomBackButton(
+          callback: () {
+            Navigator.of(context).pop();
+          },
+        ),
+      ),
       body: Material(
         child: SingleChildScrollView(
           child: Column(

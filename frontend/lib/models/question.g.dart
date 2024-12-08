@@ -8,16 +8,16 @@ part of 'question.dart';
 
 _$QuestionImpl _$$QuestionImplFromJson(Map<String, dynamic> json) =>
     _$QuestionImpl(
-      questionId: (json['question_id'] as num).toInt(),
-      questionText: json['question_text'] as String,
-      answers: (json['answers'] as List<dynamic>)
-          .map((e) => Answer.fromJson(e as Map<String, dynamic>))
+      questionId: (json['questionId'] as num).toInt(),
+      questionText: json['questionText'] as String,
+      answers: (json['answerList'] as List<dynamic>?)
+          ?.map((e) => Answer.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
 Map<String, dynamic> _$$QuestionImplToJson(_$QuestionImpl instance) =>
     <String, dynamic>{
-      'question_id': instance.questionId,
-      'question_text': instance.questionText,
-      'answers': instance.answers,
+      'questionId': instance.questionId,
+      'questionText': instance.questionText,
+      'answerList': instance.answers,
     };

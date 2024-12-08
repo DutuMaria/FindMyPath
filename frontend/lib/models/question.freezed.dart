@@ -20,12 +20,12 @@ Question _$QuestionFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Question {
-  @JsonKey(name: 'question_id')
+  @JsonKey(name: 'questionId')
   int get questionId => throw _privateConstructorUsedError;
-  @JsonKey(name: 'question_text')
+  @JsonKey(name: 'questionText')
   String get questionText => throw _privateConstructorUsedError;
-  @JsonKey(name: 'answers')
-  List<Answer> get answers => throw _privateConstructorUsedError;
+  @JsonKey(name: 'answerList')
+  List<Answer>? get answers => throw _privateConstructorUsedError;
 
   /// Serializes this Question to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -43,9 +43,9 @@ abstract class $QuestionCopyWith<$Res> {
       _$QuestionCopyWithImpl<$Res, Question>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'question_id') int questionId,
-      @JsonKey(name: 'question_text') String questionText,
-      @JsonKey(name: 'answers') List<Answer> answers});
+      {@JsonKey(name: 'questionId') int questionId,
+      @JsonKey(name: 'questionText') String questionText,
+      @JsonKey(name: 'answerList') List<Answer>? answers});
 }
 
 /// @nodoc
@@ -65,7 +65,7 @@ class _$QuestionCopyWithImpl<$Res, $Val extends Question>
   $Res call({
     Object? questionId = null,
     Object? questionText = null,
-    Object? answers = null,
+    Object? answers = freezed,
   }) {
     return _then(_value.copyWith(
       questionId: null == questionId
@@ -76,10 +76,10 @@ class _$QuestionCopyWithImpl<$Res, $Val extends Question>
           ? _value.questionText
           : questionText // ignore: cast_nullable_to_non_nullable
               as String,
-      answers: null == answers
+      answers: freezed == answers
           ? _value.answers
           : answers // ignore: cast_nullable_to_non_nullable
-              as List<Answer>,
+              as List<Answer>?,
     ) as $Val);
   }
 }
@@ -93,9 +93,9 @@ abstract class _$$QuestionImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'question_id') int questionId,
-      @JsonKey(name: 'question_text') String questionText,
-      @JsonKey(name: 'answers') List<Answer> answers});
+      {@JsonKey(name: 'questionId') int questionId,
+      @JsonKey(name: 'questionText') String questionText,
+      @JsonKey(name: 'answerList') List<Answer>? answers});
 }
 
 /// @nodoc
@@ -113,7 +113,7 @@ class __$$QuestionImplCopyWithImpl<$Res>
   $Res call({
     Object? questionId = null,
     Object? questionText = null,
-    Object? answers = null,
+    Object? answers = freezed,
   }) {
     return _then(_$QuestionImpl(
       questionId: null == questionId
@@ -124,10 +124,10 @@ class __$$QuestionImplCopyWithImpl<$Res>
           ? _value.questionText
           : questionText // ignore: cast_nullable_to_non_nullable
               as String,
-      answers: null == answers
+      answers: freezed == answers
           ? _value._answers
           : answers // ignore: cast_nullable_to_non_nullable
-              as List<Answer>,
+              as List<Answer>?,
     ));
   }
 }
@@ -136,27 +136,29 @@ class __$$QuestionImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$QuestionImpl implements _Question {
   _$QuestionImpl(
-      {@JsonKey(name: 'question_id') required this.questionId,
-      @JsonKey(name: 'question_text') required this.questionText,
-      @JsonKey(name: 'answers') required final List<Answer> answers})
+      {@JsonKey(name: 'questionId') required this.questionId,
+      @JsonKey(name: 'questionText') required this.questionText,
+      @JsonKey(name: 'answerList') final List<Answer>? answers})
       : _answers = answers;
 
   factory _$QuestionImpl.fromJson(Map<String, dynamic> json) =>
       _$$QuestionImplFromJson(json);
 
   @override
-  @JsonKey(name: 'question_id')
+  @JsonKey(name: 'questionId')
   final int questionId;
   @override
-  @JsonKey(name: 'question_text')
+  @JsonKey(name: 'questionText')
   final String questionText;
-  final List<Answer> _answers;
+  final List<Answer>? _answers;
   @override
-  @JsonKey(name: 'answers')
-  List<Answer> get answers {
+  @JsonKey(name: 'answerList')
+  List<Answer>? get answers {
+    final value = _answers;
+    if (value == null) return null;
     if (_answers is EqualUnmodifiableListView) return _answers;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_answers);
+    return EqualUnmodifiableListView(value);
   }
 
   @override
@@ -199,23 +201,23 @@ class _$QuestionImpl implements _Question {
 
 abstract class _Question implements Question {
   factory _Question(
-          {@JsonKey(name: 'question_id') required final int questionId,
-          @JsonKey(name: 'question_text') required final String questionText,
-          @JsonKey(name: 'answers') required final List<Answer> answers}) =
+          {@JsonKey(name: 'questionId') required final int questionId,
+          @JsonKey(name: 'questionText') required final String questionText,
+          @JsonKey(name: 'answerList') final List<Answer>? answers}) =
       _$QuestionImpl;
 
   factory _Question.fromJson(Map<String, dynamic> json) =
       _$QuestionImpl.fromJson;
 
   @override
-  @JsonKey(name: 'question_id')
+  @JsonKey(name: 'questionId')
   int get questionId;
   @override
-  @JsonKey(name: 'question_text')
+  @JsonKey(name: 'questionText')
   String get questionText;
   @override
-  @JsonKey(name: 'answers')
-  List<Answer> get answers;
+  @JsonKey(name: 'answerList')
+  List<Answer>? get answers;
 
   /// Create a copy of Question
   /// with the given fields replaced by the non-null parameter values.

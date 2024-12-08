@@ -2,6 +2,7 @@ package com.unibuc.find_my_path.service;
 
 import com.unibuc.find_my_path.dto.AnswerRequestDto;
 import com.unibuc.find_my_path.dto.AnswerResponseDto;
+import com.unibuc.find_my_path.dto.QuestionAnswerListDto;
 import com.unibuc.find_my_path.model.Answer;
 import com.unibuc.find_my_path.model.Question;
 import com.unibuc.find_my_path.repository.AnswerRepository;
@@ -10,6 +11,7 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -59,6 +61,30 @@ public class AnswerService {
         return new AnswerResponseDto(answer.getAnswerId(), answer.getAnswerText());
     }
 
+    public List<AnswerResponseDto> addAnswersToQuestion(int questionId, List<AnswerRequestDto> answerDtos) {
+        Optional<Question> question = questionRepository.findById(questionId);
+        if (question.isEmpty()) {
+            throw new EntityNotFoundException("Question with id " + questionId + " not found");
+        }
+
+        Question questionEntity = question.get();
+        List<AnswerResponseDto> responseDtos = new ArrayList<>();
+
+        for (AnswerRequestDto answerDto : answerDtos) {
+            Answer answer = new Answer();
+            answer.setAnswerText(answerDto.getAnswerText());
+            answer.setQuestion(questionEntity);
+            questionEntity.getAnswerList().add(answer);
+
+            answerRepository.save(answer);
+
+            responseDtos.add(new AnswerResponseDto(answer.getAnswerId(), answer.getAnswerText()));
+        }
+
+        return responseDtos;
+    }
+
+
     public AnswerResponseDto updateAnswer(int answerId, AnswerRequestDto answerDto) {
         Optional<Answer> answer = answerRepository.findById(answerId);
         if (answer.isEmpty()) {
@@ -71,6 +97,42 @@ public class AnswerService {
 
         return new AnswerResponseDto(updatedAnswer.getAnswerId(), updatedAnswer.getAnswerText());
     }
+
+    public QuestionAnswerListDto updateQuestionAnswers(QuestionAnswerListDto questionAnswerListDto) {
+        // Retrieve the question by ID
+        Optional<Question> questionOpt = questionRepository.findById(questionAnswerListDto.getQuestionId());
+        if (questionOpt.isEmpty()) {
+            throw new EntityNotFoundException("Question with id " + questionAnswerListDto.getQuestionId() + " not found");
+        }
+
+        Question question = questionOpt.get();
+
+        question.setQuestionText(questionAnswerListDto.getQuestionText());
+        questionRepository.save(question);
+
+        // Update the answers
+        List<AnswerResponseDto> updatedAnswerDtos = new ArrayList<>();
+        for (AnswerResponseDto answerDto : questionAnswerListDto.getAnswerList()) {
+            Optional<Answer> answerOpt = answerRepository.findById(answerDto.getAnswerId());
+            if (answerOpt.isEmpty()) {
+                throw new EntityNotFoundException("Answer with id " + answerDto.getAnswerId() + " not found");
+            }
+
+            Answer answer = answerOpt.get();
+            answer.setAnswerText(answerDto.getAnswerText());
+            answerRepository.save(answer);
+
+            updatedAnswerDtos.add(new AnswerResponseDto(answer.getAnswerId(), answer.getAnswerText()));
+        }
+
+        // Return updated QuestionAnswerListDto
+        return new QuestionAnswerListDto(
+                question.getQuestionId(),
+                question.getQuestionText(),
+                updatedAnswerDtos
+        );
+    }
+
 
     public void deleteAnswer(int answerId) {
         Optional<Answer> answer = answerRepository.findById(answerId);

@@ -7,9 +7,9 @@ part 'question.g.dart';
 @freezed
 class Question with _$Question {
   factory Question({
-    @JsonKey(name: 'question_id') required int questionId,
-    @JsonKey(name: 'question_text') required String questionText,
-    @JsonKey(name: 'answers') required List<Answer> answers,
+    @JsonKey(name: 'questionId') required int questionId,
+    @JsonKey(name: 'questionText') required String questionText,
+    @JsonKey(name: 'answerList') List<Answer>? answers,
   }) = _Question;
 
   factory Question.fromJson(Map<String, dynamic> json) =>

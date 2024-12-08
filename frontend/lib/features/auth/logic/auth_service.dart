@@ -47,6 +47,8 @@ class AuthService {
         body: jsonEncode(model.toJson()),
       );
 
+      print("aa ${res.body}");
+
       httpErrorHandle(
         response: res,
         context: context,

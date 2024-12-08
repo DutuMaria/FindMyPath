@@ -36,9 +36,9 @@ class QuestionScreen extends StatelessWidget {
           const SizedBox(height: 24.0),
           Expanded(
             child: ListView.builder(
-              itemCount: question.answers.length,
+              itemCount: question.answers!.length,
               itemBuilder: (context, index) {
-                final answer = question.answers[index];
+                final answer = question.answers![index];
                 return Container(
                   margin: const EdgeInsets.symmetric(
                       vertical: 8.0, horizontal: 16.0),
