@@ -90,7 +90,6 @@ class _AdminScreenState extends State<AdminScreen> {
   }
 
   void goToAddQuestion(Question question) {
-    // TODO: implement routing using auto_route
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -103,7 +102,6 @@ class _AdminScreenState extends State<AdminScreen> {
   }
 
   void goToEditQuestion(Question question) {
-    // TODO: implement routing using auto_route
     Navigator.push(
       context,
       MaterialPageRoute(

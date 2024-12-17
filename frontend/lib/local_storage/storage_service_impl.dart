@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:frontend/local_storage/storage_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -28,5 +30,29 @@ class LocalPreferencesImpl implements LocalPreferences {
   @override
   Future<void> clearData() async {
     saveAuthToken('');
+  }
+
+  @override
+  Future<void> saveUserAnswers(Map<int, int> userAnswers) async {
+    final prefs = await SharedPreferences.getInstance();
+    final stringKeyMap =
+        userAnswers.map((key, value) => MapEntry(key.toString(), value));
+    await prefs.setString('userAnswers', jsonEncode(stringKeyMap));
+  }
+
+  @override
+  Future<Map<int, int>> getUserAnswers() async {
+    final prefs = await SharedPreferences.getInstance();
+    final jsonString = prefs.getString('userAnswers');
+    if (jsonString == null) return {};
+    final Map<String, dynamic> stringKeyMap = jsonDecode(jsonString);
+    return stringKeyMap
+        .map((key, value) => MapEntry(int.parse(key), value as int));
+  }
+
+  @override
+  Future<void> clearUserAnswers() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('userAnswers');
   }
 }

@@ -29,7 +29,7 @@ class AuthService {
         onSucces: onSuccess,
       );
     } catch (e) {
-      // Handle error (e.g., showSnackBar)
+      showSnackBar(context, e.toString());
     }
   }
 
@@ -61,7 +61,7 @@ class AuthService {
         },
       );
     } catch (e) {
-      // Handle error (e.g., showSnackBar)
+      showSnackBar(context, e.toString());
     }
   }
 }
