@@ -37,6 +37,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Future<void> _clearUserData() async {
     final localPreferences = serviceLocator<LocalPreferences>();
     await localPreferences.clearData();
+    await localPreferences.clearUserAnswers();
     GlobalVariables.authToken = '';
   }
 

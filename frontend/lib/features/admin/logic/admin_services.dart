@@ -1,8 +1,6 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:frontend/features/test_attempt/logic/test_attempt_services.dart';
 import 'package:frontend/global_variables.dart';
 import 'package:frontend/local_storage/storage_service.dart';
 import 'package:frontend/models/answer.dart';
@@ -174,7 +172,6 @@ class AdminServices {
           });
     } catch (e) {
       showSnackBar(context, e.toString());
-      log(e.toString());
     }
   }
 }
