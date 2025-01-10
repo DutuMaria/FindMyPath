@@ -1,6 +1,7 @@
 package com.unibuc.find_my_path.controller;
 
 import com.unibuc.find_my_path.dto.UserProfileResponseDto;
+import com.unibuc.find_my_path.dto.UserTestResponseDto;
 import com.unibuc.find_my_path.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/user")
@@ -26,6 +28,14 @@ public class UserController {
                 .body(response);
     }
 
+    @GetMapping("/test-history")
+    public ResponseEntity<List<UserTestResponseDto>> getUserTestAttempts(Principal principal) {
+        List<UserTestResponseDto> response = userService.getUserTestAttempts(principal.getName());
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(response);
+    }
 
     @DeleteMapping("/delete")
     public ResponseEntity<String> deleteUserAccount(Authentication authentication) {

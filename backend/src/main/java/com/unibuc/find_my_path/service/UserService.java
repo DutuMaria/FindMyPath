@@ -2,6 +2,7 @@ package com.unibuc.find_my_path.service;
 
 import com.unibuc.find_my_path.dto.EducationResponseDto;
 import com.unibuc.find_my_path.dto.UserProfileResponseDto;
+import com.unibuc.find_my_path.dto.UserTestResponseDto;
 import com.unibuc.find_my_path.model.FindMyPathUser;
 import com.unibuc.find_my_path.repository.FindMyPathUserRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -35,6 +36,22 @@ public class UserService {
                         .toList()
                         : null
         );
+    }
+
+    public List<UserTestResponseDto> getUserTestAttempts(String email) {
+        FindMyPathUser user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new EntityNotFoundException("User with email " + email + " not found"));
+
+        return user.getTestAttemptList().stream()
+                .map(testAttempt -> {
+                    return new UserTestResponseDto(
+                            testAttempt.getAttemptDate(),
+                            testAttempt.getTestRating(),
+                            testAttempt.getExperienceRating(),
+                            testAttempt.isCompleted()
+                    );
+                })
+                .toList();
     }
 
     public void deleteUserByEmail(String email) {
