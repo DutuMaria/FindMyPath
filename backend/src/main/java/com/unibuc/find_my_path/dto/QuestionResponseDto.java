@@ -7,6 +7,6 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class QuestionResponseDto {
-    private int questionId;
+    private Integer questionId;
     private String questionText;
 }

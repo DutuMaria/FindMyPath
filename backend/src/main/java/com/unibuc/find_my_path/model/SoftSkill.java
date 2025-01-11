@@ -16,8 +16,9 @@ import java.util.List;
 public class SoftSkill {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int softSkillId;
+    private Integer softSkillId;
 
+    @Column(nullable = false)
     private String softSkillName;
 
     @ManyToMany(mappedBy = "softSkillList")

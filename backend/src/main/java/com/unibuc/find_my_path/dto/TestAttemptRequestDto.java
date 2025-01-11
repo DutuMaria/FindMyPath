@@ -15,9 +15,9 @@ import lombok.Setter;
 public class TestAttemptRequestDto {
     @Min(value = 1, message = "Test rating should be between 1 and 5.")
     @Max(value = 5, message = "Test rating should be between 1 and 5.")
-    private int testRating;
+    private Integer testRating;
 
     @Min(value = 1, message = "Experience rating should be between 1 and 5.")
     @Max(value = 5, message = "Experience rating should be between 1 and 5.")
-    private int experienceRating;
+    private Integer experienceRating;
 }

@@ -9,10 +9,11 @@ import java.util.List;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-public class QuestionAnswerListDto {
-    private Integer questionId;
-    private String questionText;
-    private List<AnswerResponseDto> answerList;
+@AllArgsConstructor
+public class UserProfileResponseDto {
+    private String email;
+    private String firstName;
+    private String lastName;
+    List<EducationResponseDto> educationList;
 }

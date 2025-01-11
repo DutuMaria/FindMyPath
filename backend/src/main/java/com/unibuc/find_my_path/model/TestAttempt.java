@@ -17,15 +17,19 @@ import java.util.List;
 public class TestAttempt {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long testAttemptId;
+    private Long testAttemptId;
 
+    @Column(nullable = false)
     private LocalDateTime attemptDate;
-    private int testRating;
-    private int experienceRating;
-    private boolean isCompleted;
+
+    private Integer testRating;
+    private Integer experienceRating;
+
+    @Column(nullable = false)
+    private Boolean isCompleted;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private FindMyPathUser user;
 
     @OneToOne(mappedBy = "testAttempt", cascade = CascadeType.ALL)

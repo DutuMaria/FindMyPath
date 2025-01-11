@@ -16,9 +16,10 @@ import java.util.List;
 public class Result {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long resultId;
+    private Long resultId;
 
-    private int compatibilityPercentage;
+    @Column(nullable = false)
+    private Integer compatibilityPercentage;
 
     @OneToOne
     @JoinColumn(name = "test_attempt_id")

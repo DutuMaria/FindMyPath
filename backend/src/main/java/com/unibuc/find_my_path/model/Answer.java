@@ -16,12 +16,13 @@ import java.util.List;
 public class Answer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int answerId;
+    private Integer answerId;
 
+    @Column(nullable = false)
     private String answerText;
 
     @ManyToOne
-    @JoinColumn(name = "question_id")
+    @JoinColumn(name = "question_id", nullable = false)
     private Question question;
 
     @ManyToMany(mappedBy = "answerList")

@@ -38,7 +38,7 @@ public class TestAttemptService {
                 testAttempt.getAttemptDate(),
                 testAttempt.getTestRating(),
                 testAttempt.getExperienceRating(),
-                testAttempt.isCompleted()
+                testAttempt.getIsCompleted()
         );
     }
 
@@ -51,7 +51,7 @@ public class TestAttemptService {
         TestAttempt testAttempt = new TestAttempt();
         testAttempt.setUser(userOptional.get());
         testAttempt.setAttemptDate(LocalDateTime.now());
-        testAttempt.setCompleted(false);
+        testAttempt.setIsCompleted(false);
         testAttemptRepository.save(testAttempt);
 
         return new TestAttemptResponseDto(
@@ -60,7 +60,7 @@ public class TestAttemptService {
                 testAttempt.getAttemptDate(),
                 testAttempt.getTestRating(),
                 testAttempt.getExperienceRating(),
-                testAttempt.isCompleted()
+                testAttempt.getIsCompleted()
         );
     }
 
@@ -73,7 +73,7 @@ public class TestAttemptService {
         TestAttempt testAttempt = testAttemptOptional.get();
         testAttempt.setTestRating(testAttemptRequestDto.getTestRating());
         testAttempt.setExperienceRating(testAttemptRequestDto.getExperienceRating());
-        testAttempt.setCompleted(true);
+        testAttempt.setIsCompleted(true);
         testAttemptRepository.save(testAttempt);
 
         return new TestAttemptResponseDto(
@@ -82,7 +82,7 @@ public class TestAttemptService {
                 testAttempt.getAttemptDate(),
                 testAttempt.getTestRating(),
                 testAttempt.getExperienceRating(),
-                testAttempt.isCompleted()
+                testAttempt.getIsCompleted()
         );
     }
 
@@ -100,7 +100,7 @@ public class TestAttemptService {
         TestAttempt testAttempt = testAttemptOptional.get();
         testAttempt.getAnswerList().addAll(answers);
         answers.forEach(answer -> answer.getTestAttemptList().add(testAttempt));
-        testAttempt.setCompleted(true);
+        testAttempt.setIsCompleted(true);
         
         testAttemptRepository.save(testAttempt);
     }

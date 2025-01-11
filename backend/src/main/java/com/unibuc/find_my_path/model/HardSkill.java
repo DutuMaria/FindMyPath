@@ -16,8 +16,9 @@ import java.util.List;
 public class HardSkill {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int hardSkillId;
+    private Integer hardSkillId;
 
+    @Column(nullable = false)
     private String hardSkillName;
 
     @ManyToMany(mappedBy = "hardSkillList")

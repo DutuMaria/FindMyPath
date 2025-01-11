@@ -16,8 +16,9 @@ import java.util.List;
 public class ExperienceLevel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int experienceLevelId;
+    private Integer experienceLevelId;
 
+    @Column(nullable = false)
     private String experienceLevel;
 
     @OneToMany(mappedBy = "experienceLevel", cascade = CascadeType.ALL)
