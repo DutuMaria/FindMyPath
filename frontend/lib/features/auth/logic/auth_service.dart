@@ -48,6 +48,7 @@ class AuthService {
       );
 
       print("aa ${res.body}");
+      print("aa ${res.statusCode}");
 
       httpErrorHandle(
         response: res,

@@ -5,6 +5,7 @@ import 'package:frontend/features/auth/ui/sign_up_screen.dart';
 import 'package:frontend/features/dashboard/logic/dashboard_service.dart';
 import 'package:frontend/features/dashboard/ui/widgets/confirmation_dialog.dart';
 import 'package:frontend/features/dashboard/ui/widgets/custom_app_bar.dart';
+import 'package:frontend/features/profile/ui/profile_screen.dart';
 import 'package:frontend/features/test_attempt/ui/test_info_screen.dart';
 import 'package:frontend/global_variables.dart';
 
@@ -56,6 +57,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ProfileScreen(),
+                  ),
+                );
+              },
+              child: const Text('Profile'),
+            ),
             TextButton(
               onPressed: () {
                 Navigator.push(
