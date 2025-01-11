@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class QuestionAnswerListDto {
-    private int questionId;
+    private Integer questionId;
     private String questionText;
     private List<AnswerResponseDto> answerList;
 }

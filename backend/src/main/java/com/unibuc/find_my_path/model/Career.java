@@ -16,15 +16,17 @@ import java.util.List;
 public class Career {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long careerId;
+    private Long careerId;
 
+    @Column(nullable = false)
     private String title;
+
     private String description;
     private String industry;
     private String salaryRange;
 
     @ManyToOne
-    @JoinColumn(name = "experience_level_id", nullable = true)
+    @JoinColumn(name = "experience_level_id")
     private ExperienceLevel experienceLevel;
 
     @ManyToMany

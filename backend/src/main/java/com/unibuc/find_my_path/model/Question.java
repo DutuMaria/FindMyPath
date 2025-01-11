@@ -16,8 +16,9 @@ import java.util.List;
 public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int questionId;
+    private Integer questionId;
 
+    @Column(nullable = false)
     private String questionText;
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)

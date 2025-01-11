@@ -48,7 +48,7 @@ public class UserService {
                             testAttempt.getAttemptDate(),
                             testAttempt.getTestRating(),
                             testAttempt.getExperienceRating(),
-                            testAttempt.isCompleted()
+                            testAttempt.getIsCompleted()
                     );
                 })
                 .toList();

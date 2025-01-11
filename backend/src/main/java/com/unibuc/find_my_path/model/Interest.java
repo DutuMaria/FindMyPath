@@ -16,8 +16,9 @@ import java.util.List;
 public class Interest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int interestId;
+    private Integer interestId;
 
+    @Column(nullable = false)
     private String interestName;
 
     @ManyToMany(mappedBy = "interestList")

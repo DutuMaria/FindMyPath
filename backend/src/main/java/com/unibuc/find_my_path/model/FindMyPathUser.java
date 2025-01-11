@@ -19,11 +19,20 @@ public class FindMyPathUser {
     @Id
     private UUID userId;
 
+    @Column(nullable = false)
     private String passwordHash;
+
+    @Column(nullable = false)
     private String firstName;
+
+    @Column(nullable = false)
     private String lastName;
+
+    @Column(nullable = false)
     private String email;
-    private boolean isAdmin;
+
+    @Column(nullable = false)
+    private Boolean isAdmin;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Education> educationList;

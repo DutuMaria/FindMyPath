@@ -16,13 +16,15 @@ import java.time.LocalDate;
 public class Education {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long educationId;
+    private Long educationId;
 
+    @Column(nullable = false)
     private String certificate;
+
     private String institutionName;
     private LocalDate completionDate;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private FindMyPathUser user;
 }

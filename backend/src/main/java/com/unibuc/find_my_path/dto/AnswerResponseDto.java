@@ -7,6 +7,6 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AnswerResponseDto {
-    private int answerId;
+    private Integer answerId;
     private String answerText;
 }

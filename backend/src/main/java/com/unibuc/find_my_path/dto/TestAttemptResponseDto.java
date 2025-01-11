@@ -13,10 +13,10 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TestAttemptResponseDto {
-    private long testAttemptId;
+    private Long testAttemptId;
     private UUID userId;
     private LocalDateTime attemptDate;
-    private int testRating;
-    private int experienceRating;
-    private boolean isCompleted;
+    private Integer testRating;
+    private Integer experienceRating;
+    private Boolean isCompleted;
 }
