@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserTestResponseDto {
+    private Long testAttemptId;
     private LocalDateTime attemptDate;
     private Integer testRating;
     private Integer experienceRating;

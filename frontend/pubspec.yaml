@@ -1,12 +1,11 @@
 name: frontend
 description: "A new Flutter project."
-publish_to: 'none' 
+publish_to: "none"
 
 version: 1.0.0+1
 
 environment:
   sdk: ^3.5.4
-
 
 dependencies:
   flutter:
@@ -22,7 +21,7 @@ dependencies:
   tap_debouncer: ^2.2.0
   shared_preferences: ^2.3.2
   get_it: ^8.0.2
-
+  intl: ^0.20.1
 
 dev_dependencies:
   flutter_test:
@@ -33,7 +32,6 @@ dev_dependencies:
   json_serializable: ^6.9.0
 
 flutter:
-
   uses-material-design: true
 
   assets:

@@ -26,6 +26,7 @@ public class UserService {
                 user.getFirstName(),
                 user.getLastName(),
                 user.getEducationList() != null ? user.getEducationList().stream()
+                        .sorted((e1, e2) -> e2.getCompletionDate().compareTo(e1.getCompletionDate()))
                         .map(education -> {
                             return new EducationResponseDto(
                                     education.getCertificate(),
@@ -43,8 +44,10 @@ public class UserService {
                 .orElseThrow(() -> new EntityNotFoundException("User with email " + email + " not found"));
 
         return user.getTestAttemptList().stream()
+                .sorted((t1, t2) -> t2.getAttemptDate().compareTo(t1.getAttemptDate()))
                 .map(testAttempt -> {
                     return new UserTestResponseDto(
+                            testAttempt.getTestAttemptId(),
                             testAttempt.getAttemptDate(),
                             testAttempt.getTestRating(),
                             testAttempt.getExperienceRating(),
