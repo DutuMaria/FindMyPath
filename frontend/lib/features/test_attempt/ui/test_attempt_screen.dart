@@ -81,6 +81,7 @@ class _TestAttemptScreenState extends State<TestAttemptScreen> {
                   questionList[_currentIndex].questionId, answerId);
             },
             onNext: _nextQuestion,
+            onSkip:  () => _skipQuestion(questionList[_currentIndex].questionId),
             onPrevious: _previousQuestion,
             onSubmit: _submitTest,
           );
@@ -106,6 +107,14 @@ class _TestAttemptScreenState extends State<TestAttemptScreen> {
       userAnswers[questionId] = answerId;
       appPreferences.saveUserAnswers(userAnswers);
     });
+  }
+
+  void _skipQuestion(int questionId) {
+    setState(() {
+      userAnswers[questionId] = -1;
+      appPreferences.saveUserAnswers(userAnswers);
+    });
+    _nextQuestion();
   }
 
   void _nextQuestion() {
