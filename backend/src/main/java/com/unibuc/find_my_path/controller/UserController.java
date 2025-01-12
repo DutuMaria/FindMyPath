@@ -1,5 +1,6 @@
 package com.unibuc.find_my_path.controller;
 
+import com.unibuc.find_my_path.dto.ResetPasswordRequestDto;
 import com.unibuc.find_my_path.dto.UpdateUserProfileRequestDto;
 import com.unibuc.find_my_path.dto.UserProfileResponseDto;
 import com.unibuc.find_my_path.dto.UserTestResponseDto;
@@ -61,6 +62,20 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while updating the profile.");
+        }
+    }
+
+    @PutMapping("/reset-password")
+    public ResponseEntity<String> resetPassword(@RequestBody @Valid ResetPasswordRequestDto request, Principal principal) {
+        try {
+            userService.resetPassword(principal.getName(), request);
+            return ResponseEntity.ok("Password reset successfully.");
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while resetting the password.");
         }
     }
 }

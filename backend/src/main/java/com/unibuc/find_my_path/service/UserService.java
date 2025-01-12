@@ -1,13 +1,11 @@
 package com.unibuc.find_my_path.service;
 
-import com.unibuc.find_my_path.dto.EducationResponseDto;
-import com.unibuc.find_my_path.dto.UpdateUserProfileRequestDto;
-import com.unibuc.find_my_path.dto.UserProfileResponseDto;
-import com.unibuc.find_my_path.dto.UserTestResponseDto;
+import com.unibuc.find_my_path.dto.*;
 import com.unibuc.find_my_path.model.FindMyPathUser;
 import com.unibuc.find_my_path.repository.FindMyPathUserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +15,11 @@ public class UserService {
 
     @Autowired
     private FindMyPathUserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+
+    public UserService(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
 
     public UserProfileResponseDto getUserProfile(String email) {
         FindMyPathUser user = userRepository.findByEmail(email)
@@ -70,6 +73,18 @@ public class UserService {
 
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
+        userRepository.save(user);
+    }
+
+    public void resetPassword(String email, ResetPasswordRequestDto request) {
+        FindMyPathUser user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new EntityNotFoundException("User with email " + email + " not found."));
+
+        if (!passwordEncoder.matches(request.getOldPassword(), user.getPasswordHash())) {
+            throw new IllegalArgumentException("Old password is incorrect.");
+        }
+
+        user.setPasswordHash(passwordEncoder.encode(request.getNewPassword()));
         userRepository.save(user);
     }
 }
