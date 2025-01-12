@@ -3,6 +3,7 @@ package com.unibuc.find_my_path.service;
 import com.unibuc.find_my_path.dto.AnswerIdListDto;
 import com.unibuc.find_my_path.dto.TestAttemptRequestDto;
 import com.unibuc.find_my_path.dto.TestAttemptResponseDto;
+import com.unibuc.find_my_path.dto.TestResultRatingRequestDto;
 import com.unibuc.find_my_path.model.Answer;
 import com.unibuc.find_my_path.model.FindMyPathUser;
 import com.unibuc.find_my_path.model.TestAttempt;
@@ -112,5 +113,20 @@ public class TestAttemptService {
         }
 
         return testAttemptRepository.existsByUserAndIsCompletedFalse(userOptional.get());
+    }
+
+    public void saveTestRating(long testAttemptId, TestResultRatingRequestDto request) {
+        Optional<TestAttempt> testAttemptOptional = testAttemptRepository.findById(testAttemptId);
+        if (testAttemptOptional.isEmpty()) {
+            throw new EntityNotFoundException("Test attempt with id " + testAttemptId + " not found.");
+        }
+
+        TestAttempt testAttempt = testAttemptOptional.get();
+        if (testAttempt.getIsCompleted() == null || !testAttempt.getIsCompleted()) {
+            throw new IllegalStateException("Test attempt must be completed before rating.");
+        }
+
+        testAttempt.setTestRating(request.getRating());
+        testAttemptRepository.save(testAttempt);
     }
 }
