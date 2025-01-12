@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/features/admin/logic/admin_services.dart';
 import 'package:frontend/features/test_attempt/logic/test_attempt_services.dart';
+import 'package:frontend/features/test_attempt/ui/widgets/rating.dart';
 import 'package:frontend/global_variables.dart';
 import 'package:frontend/local_storage/storage_service.dart';
 import 'package:frontend/models/question.dart';
@@ -154,6 +155,15 @@ class _TestAttemptScreenState extends State<TestAttemptScreen> {
     Navigator.of(context).pop();
 
     // TODO: use actual id and ratings
+
+    await showRatingDialog(
+      context,
+      (experienceRating, contentRating) {
+        print('Experience Rating: $experienceRating');
+        print('Test Content Rating: $contentRating');
+      },
+    );
+
     testAttemptServices.finishTestAttempt(
       context: context,
       testId: "24",
