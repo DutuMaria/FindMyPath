@@ -2,6 +2,7 @@ package com.unibuc.find_my_path.controller;
 
 import com.unibuc.find_my_path.dto.*;
 import com.unibuc.find_my_path.service.TestAttemptService;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -56,5 +57,21 @@ public class TestAttemptController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(hasIncomplete);
+    }
+
+    @PostMapping("/{id}/rate")
+    public ResponseEntity<String> rateTestResult(
+            @PathVariable long id,
+            @RequestBody @Valid TestResultRatingRequestDto request) {
+        try {
+            testAttemptService.saveTestRating(id, request);
+            return ResponseEntity.ok("Test rating saved successfully.");
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (IllegalStateException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while saving the rating.");
+        }
     }
 }
