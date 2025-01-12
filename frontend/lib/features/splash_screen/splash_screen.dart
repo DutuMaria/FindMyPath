@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:frontend/utils/logo_image.dart';
 
 import '../../global_variables.dart';
 import '../../local_storage/storage_service.dart';
@@ -64,11 +65,11 @@ class _SplashScreenState extends State<SplashScreen> {
                 ),
               ),
             ),
-            Align(
+            const Align(
               alignment: Alignment.topCenter,
               child: Padding(
-                padding: const EdgeInsets.only(top: 100.0),
-                child: Image.asset('assets/images/app_logo.png', height: 150.0),
+                padding: EdgeInsets.only(top: 100.0),
+                child: LogoImage(),
               ),
             ),
           ],

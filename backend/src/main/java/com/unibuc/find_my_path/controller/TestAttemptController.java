@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -52,11 +53,14 @@ public class TestAttemptController {
     }
 
     @GetMapping("/{userId}/has-incomplete-test")
-    public ResponseEntity<Boolean> hasTestAttemptInProgress(@PathVariable UUID userId) {
-        boolean hasIncomplete = testAttemptService.hasTestAttemptInProgress(userId);
+    public ResponseEntity<Long> hasTestAttemptInProgress(@PathVariable UUID userId) {
+        Optional<Long> hasIncompleteTest = testAttemptService.hasTestAttemptInProgress(userId);
+
+        Long testId = hasIncompleteTest.orElse(0L);
+
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(hasIncomplete);
+                .body(testId);
     }
 
     @PostMapping("/{id}/rate")

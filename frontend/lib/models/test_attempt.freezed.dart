@@ -22,16 +22,16 @@ TestAttempt _$TestAttemptFromJson(Map<String, dynamic> json) {
 mixin _$TestAttempt {
   @JsonKey(name: 'test_attempt_id')
   int get testAttemptId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'user_id')
+  String get userId => throw _privateConstructorUsedError;
   @JsonKey(name: 'attempt_date')
-  DateTime get attemptDate => throw _privateConstructorUsedError;
+  DateTime? get attemptDate => throw _privateConstructorUsedError;
+  @JsonKey(name: 'test_rating')
+  int? get testRating => throw _privateConstructorUsedError;
   @JsonKey(name: 'experience_rating')
   int? get experienceRating => throw _privateConstructorUsedError;
   @JsonKey(name: 'is_completed')
   bool get isCompleted => throw _privateConstructorUsedError;
-  @JsonKey(name: 'test_rating')
-  int? get testRating => throw _privateConstructorUsedError;
-  @JsonKey(name: 'user_id')
-  String get userId => throw _privateConstructorUsedError;
 
   /// Serializes this TestAttempt to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -51,11 +51,11 @@ abstract class $TestAttemptCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(name: 'test_attempt_id') int testAttemptId,
-      @JsonKey(name: 'attempt_date') DateTime attemptDate,
-      @JsonKey(name: 'experience_rating') int? experienceRating,
-      @JsonKey(name: 'is_completed') bool isCompleted,
+      @JsonKey(name: 'user_id') String userId,
+      @JsonKey(name: 'attempt_date') DateTime? attemptDate,
       @JsonKey(name: 'test_rating') int? testRating,
-      @JsonKey(name: 'user_id') String userId});
+      @JsonKey(name: 'experience_rating') int? experienceRating,
+      @JsonKey(name: 'is_completed') bool isCompleted});
 }
 
 /// @nodoc
@@ -74,21 +74,29 @@ class _$TestAttemptCopyWithImpl<$Res, $Val extends TestAttempt>
   @override
   $Res call({
     Object? testAttemptId = null,
-    Object? attemptDate = null,
+    Object? userId = null,
+    Object? attemptDate = freezed,
+    Object? testRating = freezed,
     Object? experienceRating = freezed,
     Object? isCompleted = null,
-    Object? testRating = freezed,
-    Object? userId = null,
   }) {
     return _then(_value.copyWith(
       testAttemptId: null == testAttemptId
           ? _value.testAttemptId
           : testAttemptId // ignore: cast_nullable_to_non_nullable
               as int,
-      attemptDate: null == attemptDate
+      userId: null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String,
+      attemptDate: freezed == attemptDate
           ? _value.attemptDate
           : attemptDate // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as DateTime?,
+      testRating: freezed == testRating
+          ? _value.testRating
+          : testRating // ignore: cast_nullable_to_non_nullable
+              as int?,
       experienceRating: freezed == experienceRating
           ? _value.experienceRating
           : experienceRating // ignore: cast_nullable_to_non_nullable
@@ -97,14 +105,6 @@ class _$TestAttemptCopyWithImpl<$Res, $Val extends TestAttempt>
           ? _value.isCompleted
           : isCompleted // ignore: cast_nullable_to_non_nullable
               as bool,
-      testRating: freezed == testRating
-          ? _value.testRating
-          : testRating // ignore: cast_nullable_to_non_nullable
-              as int?,
-      userId: null == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
-              as String,
     ) as $Val);
   }
 }
@@ -119,11 +119,11 @@ abstract class _$$TestAttemptImplCopyWith<$Res>
   @useResult
   $Res call(
       {@JsonKey(name: 'test_attempt_id') int testAttemptId,
-      @JsonKey(name: 'attempt_date') DateTime attemptDate,
-      @JsonKey(name: 'experience_rating') int? experienceRating,
-      @JsonKey(name: 'is_completed') bool isCompleted,
+      @JsonKey(name: 'user_id') String userId,
+      @JsonKey(name: 'attempt_date') DateTime? attemptDate,
       @JsonKey(name: 'test_rating') int? testRating,
-      @JsonKey(name: 'user_id') String userId});
+      @JsonKey(name: 'experience_rating') int? experienceRating,
+      @JsonKey(name: 'is_completed') bool isCompleted});
 }
 
 /// @nodoc
@@ -140,21 +140,29 @@ class __$$TestAttemptImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? testAttemptId = null,
-    Object? attemptDate = null,
+    Object? userId = null,
+    Object? attemptDate = freezed,
+    Object? testRating = freezed,
     Object? experienceRating = freezed,
     Object? isCompleted = null,
-    Object? testRating = freezed,
-    Object? userId = null,
   }) {
     return _then(_$TestAttemptImpl(
       testAttemptId: null == testAttemptId
           ? _value.testAttemptId
           : testAttemptId // ignore: cast_nullable_to_non_nullable
               as int,
-      attemptDate: null == attemptDate
+      userId: null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String,
+      attemptDate: freezed == attemptDate
           ? _value.attemptDate
           : attemptDate // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as DateTime?,
+      testRating: freezed == testRating
+          ? _value.testRating
+          : testRating // ignore: cast_nullable_to_non_nullable
+              as int?,
       experienceRating: freezed == experienceRating
           ? _value.experienceRating
           : experienceRating // ignore: cast_nullable_to_non_nullable
@@ -163,14 +171,6 @@ class __$$TestAttemptImplCopyWithImpl<$Res>
           ? _value.isCompleted
           : isCompleted // ignore: cast_nullable_to_non_nullable
               as bool,
-      testRating: freezed == testRating
-          ? _value.testRating
-          : testRating // ignore: cast_nullable_to_non_nullable
-              as int?,
-      userId: null == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
-              as String,
     ));
   }
 }
@@ -180,11 +180,11 @@ class __$$TestAttemptImplCopyWithImpl<$Res>
 class _$TestAttemptImpl implements _TestAttempt {
   _$TestAttemptImpl(
       {@JsonKey(name: 'test_attempt_id') required this.testAttemptId,
+      @JsonKey(name: 'user_id') required this.userId,
       @JsonKey(name: 'attempt_date') required this.attemptDate,
-      @JsonKey(name: 'experience_rating') required this.experienceRating,
-      @JsonKey(name: 'is_completed') required this.isCompleted,
       @JsonKey(name: 'test_rating') required this.testRating,
-      @JsonKey(name: 'user_id') required this.userId});
+      @JsonKey(name: 'experience_rating') required this.experienceRating,
+      @JsonKey(name: 'is_completed') required this.isCompleted});
 
   factory _$TestAttemptImpl.fromJson(Map<String, dynamic> json) =>
       _$$TestAttemptImplFromJson(json);
@@ -193,24 +193,24 @@ class _$TestAttemptImpl implements _TestAttempt {
   @JsonKey(name: 'test_attempt_id')
   final int testAttemptId;
   @override
+  @JsonKey(name: 'user_id')
+  final String userId;
+  @override
   @JsonKey(name: 'attempt_date')
-  final DateTime attemptDate;
+  final DateTime? attemptDate;
+  @override
+  @JsonKey(name: 'test_rating')
+  final int? testRating;
   @override
   @JsonKey(name: 'experience_rating')
   final int? experienceRating;
   @override
   @JsonKey(name: 'is_completed')
   final bool isCompleted;
-  @override
-  @JsonKey(name: 'test_rating')
-  final int? testRating;
-  @override
-  @JsonKey(name: 'user_id')
-  final String userId;
 
   @override
   String toString() {
-    return 'TestAttempt(testAttemptId: $testAttemptId, attemptDate: $attemptDate, experienceRating: $experienceRating, isCompleted: $isCompleted, testRating: $testRating, userId: $userId)';
+    return 'TestAttempt(testAttemptId: $testAttemptId, userId: $userId, attemptDate: $attemptDate, testRating: $testRating, experienceRating: $experienceRating, isCompleted: $isCompleted)';
   }
 
   @override
@@ -220,21 +220,21 @@ class _$TestAttemptImpl implements _TestAttempt {
             other is _$TestAttemptImpl &&
             (identical(other.testAttemptId, testAttemptId) ||
                 other.testAttemptId == testAttemptId) &&
+            (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.attemptDate, attemptDate) ||
                 other.attemptDate == attemptDate) &&
+            (identical(other.testRating, testRating) ||
+                other.testRating == testRating) &&
             (identical(other.experienceRating, experienceRating) ||
                 other.experienceRating == experienceRating) &&
             (identical(other.isCompleted, isCompleted) ||
-                other.isCompleted == isCompleted) &&
-            (identical(other.testRating, testRating) ||
-                other.testRating == testRating) &&
-            (identical(other.userId, userId) || other.userId == userId));
+                other.isCompleted == isCompleted));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, testAttemptId, attemptDate,
-      experienceRating, isCompleted, testRating, userId);
+  int get hashCode => Object.hash(runtimeType, testAttemptId, userId,
+      attemptDate, testRating, experienceRating, isCompleted);
 
   /// Create a copy of TestAttempt
   /// with the given fields replaced by the non-null parameter values.
@@ -255,12 +255,12 @@ class _$TestAttemptImpl implements _TestAttempt {
 abstract class _TestAttempt implements TestAttempt {
   factory _TestAttempt(
       {@JsonKey(name: 'test_attempt_id') required final int testAttemptId,
-      @JsonKey(name: 'attempt_date') required final DateTime attemptDate,
-      @JsonKey(name: 'experience_rating') required final int? experienceRating,
-      @JsonKey(name: 'is_completed') required final bool isCompleted,
+      @JsonKey(name: 'user_id') required final String userId,
+      @JsonKey(name: 'attempt_date') required final DateTime? attemptDate,
       @JsonKey(name: 'test_rating') required final int? testRating,
-      @JsonKey(name: 'user_id')
-      required final String userId}) = _$TestAttemptImpl;
+      @JsonKey(name: 'experience_rating') required final int? experienceRating,
+      @JsonKey(name: 'is_completed')
+      required final bool isCompleted}) = _$TestAttemptImpl;
 
   factory _TestAttempt.fromJson(Map<String, dynamic> json) =
       _$TestAttemptImpl.fromJson;
@@ -269,20 +269,20 @@ abstract class _TestAttempt implements TestAttempt {
   @JsonKey(name: 'test_attempt_id')
   int get testAttemptId;
   @override
+  @JsonKey(name: 'user_id')
+  String get userId;
+  @override
   @JsonKey(name: 'attempt_date')
-  DateTime get attemptDate;
+  DateTime? get attemptDate;
+  @override
+  @JsonKey(name: 'test_rating')
+  int? get testRating;
   @override
   @JsonKey(name: 'experience_rating')
   int? get experienceRating;
   @override
   @JsonKey(name: 'is_completed')
   bool get isCompleted;
-  @override
-  @JsonKey(name: 'test_rating')
-  int? get testRating;
-  @override
-  @JsonKey(name: 'user_id')
-  String get userId;
 
   /// Create a copy of TestAttempt
   /// with the given fields replaced by the non-null parameter values.

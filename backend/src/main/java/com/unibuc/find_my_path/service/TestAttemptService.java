@@ -106,13 +106,18 @@ public class TestAttemptService {
         testAttemptRepository.save(testAttempt);
     }
 
-    public boolean hasTestAttemptInProgress(UUID userId) {
+    public Optional<Long> hasTestAttemptInProgress(UUID userId) {
         Optional<FindMyPathUser> userOptional = findMyPathUserRepository.findById(userId);
         if (userOptional.isEmpty()) {
             throw new EntityNotFoundException("User with id " + userId + " not found.");
         }
 
-        return testAttemptRepository.existsByUserAndIsCompletedFalse(userOptional.get());
+        //return testAttemptRepository.existsByUserAndIsCompletedFalse(userOptional.get());
+
+        Optional<TestAttempt> testAttemptOptional = testAttemptRepository.findByUserAndIsCompletedFalse(userOptional.get());
+
+        // Return the test attempt ID if present
+        return testAttemptOptional.map(TestAttempt::getTestAttemptId);
     }
 
         public void saveTestAndExperienceRating(long testAttemptId, TestResultRatingRequestDto request) {
