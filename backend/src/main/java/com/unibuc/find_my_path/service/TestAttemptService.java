@@ -115,7 +115,7 @@ public class TestAttemptService {
         return testAttemptRepository.existsByUserAndIsCompletedFalse(userOptional.get());
     }
 
-    public void saveTestRating(long testAttemptId, TestResultRatingRequestDto request) {
+        public void saveTestAndExperienceRating(long testAttemptId, TestResultRatingRequestDto request) {
         Optional<TestAttempt> testAttemptOptional = testAttemptRepository.findById(testAttemptId);
         if (testAttemptOptional.isEmpty()) {
             throw new EntityNotFoundException("Test attempt with id " + testAttemptId + " not found.");
@@ -126,7 +126,8 @@ public class TestAttemptService {
             throw new IllegalStateException("Test attempt must be completed before rating.");
         }
 
-        testAttempt.setTestRating(request.getRating());
+        testAttempt.setTestRating(request.getTestRating());
+        testAttempt.setExperienceRating(request.getExperienceRating());
         testAttemptRepository.save(testAttempt);
     }
 }

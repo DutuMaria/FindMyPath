@@ -60,18 +60,18 @@ public class TestAttemptController {
     }
 
     @PostMapping("/{id}/rate")
-    public ResponseEntity<String> rateTestResult(
+    public ResponseEntity<String> rateTestAndExperience(
             @PathVariable long id,
             @RequestBody @Valid TestResultRatingRequestDto request) {
         try {
-            testAttemptService.saveTestRating(id, request);
-            return ResponseEntity.ok("Test rating saved successfully.");
+            testAttemptService.saveTestAndExperienceRating(id, request);
+            return ResponseEntity.ok("Test and experience ratings saved successfully.");
         } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         } catch (IllegalStateException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while saving the rating.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while saving the ratings.");
         }
     }
 }
