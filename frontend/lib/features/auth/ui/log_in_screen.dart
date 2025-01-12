@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend/features/auth/ui/sign_up_screen.dart';
 import 'package:frontend/features/auth/ui/widgets/custom_text_form_input.dart';
 import 'package:frontend/features/dashboard/ui/dashboard_screen.dart';
+import 'package:frontend/utils/logo_image.dart';
 
 import '../../../models/auth.dart';
 import '../../../utils/custom_colors.dart';
@@ -76,7 +77,7 @@ class _LogInScreenState extends State<LogInScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Image.asset('assets/images/app_logo.png', height: 150.0),
+                      const LogoImage(),
                       const SizedBox(height: 30.0),
                       CustomTextFormInput(
                         controller: emailController,

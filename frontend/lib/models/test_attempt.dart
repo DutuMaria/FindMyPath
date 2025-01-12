@@ -7,11 +7,11 @@ part 'test_attempt.g.dart';
 class TestAttempt with _$TestAttempt {
   factory TestAttempt({
     @JsonKey(name: 'test_attempt_id') required int testAttemptId,
-    @JsonKey(name: 'attempt_date') required DateTime attemptDate,
+    @JsonKey(name: 'user_id') required String userId,
+    @JsonKey(name: 'attempt_date') required DateTime? attemptDate,
+    @JsonKey(name: 'test_rating') required int? testRating,
     @JsonKey(name: 'experience_rating') required int? experienceRating,
     @JsonKey(name: 'is_completed') required bool isCompleted,
-    @JsonKey(name: 'test_rating') required int? testRating,
-    @JsonKey(name: 'user_id') required String userId,
   }) = _TestAttempt;
 
   factory TestAttempt.fromJson(Map<String, dynamic> json) =>

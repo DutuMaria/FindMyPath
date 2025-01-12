@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:frontend/features/admin/logic/admin_services.dart';
 import 'package:frontend/features/test_attempt/logic/test_attempt_services.dart';
 import 'package:frontend/features/test_attempt/ui/widgets/rating.dart';
-import 'package:frontend/global_variables.dart';
 import 'package:frontend/local_storage/storage_service.dart';
 import 'package:frontend/models/question.dart';
 import 'package:frontend/features/test_attempt/ui/widgets/question_screen.dart';
@@ -31,14 +30,12 @@ class _TestAttemptScreenState extends State<TestAttemptScreen> {
   List<Question> questionList = [];
   int _currentIndex = 0;
   Map<int, int> userAnswers = {}; // questionId -> answerId
+  int testId = -1;
 
   @override
   void initState() {
     super.initState();
     fetchQuestions();
-
-    print(GlobalVariables.authToken);
-    print(GlobalVariables.userId);
 
     if (widget.answers.isEmpty) {
       startTest(widget.userId);
@@ -82,7 +79,7 @@ class _TestAttemptScreenState extends State<TestAttemptScreen> {
                   questionList[_currentIndex].questionId, answerId);
             },
             onNext: _nextQuestion,
-            onSkip:  () => _skipQuestion(questionList[_currentIndex].questionId),
+            onSkip: () => _skipQuestion(questionList[_currentIndex].questionId),
             onPrevious: _previousQuestion,
             onSubmit: _submitTest,
           );
@@ -96,11 +93,12 @@ class _TestAttemptScreenState extends State<TestAttemptScreen> {
     if (mounted) setState(() {});
   }
 
-  void startTest(String userId) {
-    testAttemptServices.startTestAttempt(
+  void startTest(String userId) async {
+    testId = await testAttemptServices.startTestAttempt(
       context: context,
       userId: userId,
     );
+    print(" aaaa $testId");
   }
 
   void _onAnswerSelected(int questionId, int answerId) {
@@ -151,10 +149,13 @@ class _TestAttemptScreenState extends State<TestAttemptScreen> {
   }
 
   void _submitTest() async {
-    appPreferences.clearUserAnswers();
-    Navigator.of(context).pop();
+    testAttemptServices.submitTestAttempt(
+      context: context,
+      testId: testId,
+      answersIdList: userAnswers.values.where((x) => x > 0).toList(),
+    );
 
-    // TODO: use actual id and ratings
+    // TODO: update test attempt with ratings
 
     await showRatingDialog(
       context,
@@ -164,11 +165,7 @@ class _TestAttemptScreenState extends State<TestAttemptScreen> {
       },
     );
 
-    testAttemptServices.finishTestAttempt(
-      context: context,
-      testId: "24",
-      testRating: 2,
-      experienceRating: 2,
-    );
+    appPreferences.clearUserAnswers();
+    Navigator.of(context).pop();
   }
 }

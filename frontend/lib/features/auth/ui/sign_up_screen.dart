@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/features/auth/ui/widgets/custom_text_form_input.dart';
 import 'package:frontend/utils/custom_colors.dart';
+import 'package:frontend/utils/logo_image.dart';
 import '../logic/auth_service.dart';
 import 'log_in_screen.dart';
 import 'package:frontend/models/auth.dart';
@@ -29,7 +30,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
     emailController.addListener(_updateButtonState);
     passwordController.addListener(_updateButtonState);
   }
-
 
   void _updateButtonState() {
     setState(() {
@@ -82,7 +82,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.asset('assets/images/app_logo.png', height: 150.0),
+                    const LogoImage(),
                     const SizedBox(height: 20.0),
                     CustomTextFormInput(
                       controller: firstNameController,

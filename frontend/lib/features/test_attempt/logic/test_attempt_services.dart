@@ -3,17 +3,19 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:frontend/global_variables.dart';
 import 'package:frontend/local_storage/storage_service.dart';
+import 'package:frontend/models/test_attempt.dart';
 import 'package:frontend/utils/error_handling.dart';
 import 'package:frontend/utils/service_locator.dart';
 import 'package:http/http.dart' as http;
 
 class TestAttemptServices {
-  void startTestAttempt({
+  Future<int> startTestAttempt({
     required BuildContext context,
     required String userId,
   }) async {
     final appPreferences = serviceLocator<LocalPreferences>();
     String token = await appPreferences.getAuthToken();
+    int testAttemptId = -1;
 
     try {
       http.Response res = await http.post(
@@ -27,31 +29,33 @@ class TestAttemptServices {
       httpErrorHandle(
         response: res,
         context: context,
-        onSucces: () {},
+        onSucces: () {
+          Map<String, dynamic> responseData = jsonDecode(res.body);
+          testAttemptId = responseData['testAttemptId'];
+        },
       );
     } catch (e) {
       showSnackBar(context, e.toString());
     }
+
+    return testAttemptId;
   }
 
-  void finishTestAttempt({
+  void submitTestAttempt({
     required BuildContext context,
-    required String testId,
-    required int testRating,
-    required int experienceRating,
+    required int testId,
+    required List<int> answersIdList,
   }) async {
     final appPreferences = serviceLocator<LocalPreferences>();
     String token = await appPreferences.getAuthToken();
-
-    final rating = jsonEncode({
-      "testRating": testRating,
-      "experienceRating": experienceRating,
-    });
-
+    print(answersIdList);
     try {
-      http.Response res = await http.put(
-        Uri.parse('${GlobalVariables.serverUrl}/test-attempts/$testId'),
-        body: rating,
+      http.Response res = await http.post(
+        Uri.parse(
+            '${GlobalVariables.serverUrl}/test-attempts/$testId/finish-test'),
+        body: jsonEncode({
+          'answerIds': answersIdList,
+        }),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
           'Authorization': 'Bearer $token'
@@ -61,9 +65,13 @@ class TestAttemptServices {
       httpErrorHandle(
         response: res,
         context: context,
-        onSucces: () {},
+        onSucces: () {
+          print(res.statusCode);
+          print(res.body);
+        },
       );
     } catch (e) {
+      print(e.toString());
       showSnackBar(context, e.toString());
     }
   }
