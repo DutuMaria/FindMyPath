@@ -83,11 +83,14 @@ class TestInfoScreen extends StatelessWidget {
                         Map<int, int> userAnswers =
                             await appPreferences.getUserAnswers();
 
+                        String userId = await appPreferences.getUserId();
+
                         Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => TestAttemptScreen(
                               answers: userAnswers,
+                              userId: userId,
                             ),
                           ),
                         );

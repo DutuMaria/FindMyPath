@@ -90,6 +90,7 @@ class TestAttemptServices {
         response: res,
         context: context,
         onSucces: () {
+          // TODO check if jsonDecode(res.body) is actually returning a bool
           hasTestAttemptInProgress = jsonDecode(res.body);
         },
       );

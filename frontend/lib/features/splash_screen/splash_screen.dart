@@ -26,6 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
     Timer(const Duration(seconds: 3), () async {
       String token = await appPreferences.getAuthToken();
+      GlobalVariables.userId = await appPreferences.getUserId();
       timerCompleter.complete(token);
     });
 

@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class LocalPreferencesImpl implements LocalPreferences {
   static const sharedPrefAuthTokenKey = 'auth_token_key';
+  static const sharedPrefUserIdKey = 'auth_user_id_key';
 
   @override
   Future<String> getAuthToken() async {
@@ -13,8 +14,19 @@ class LocalPreferencesImpl implements LocalPreferences {
   }
 
   @override
+  Future<String> getUserId() async {
+    String data = await _getStringFromPreferences(sharedPrefUserIdKey);
+    return data;
+  }
+
+  @override
   Future<void> saveAuthToken(String token) {
     return _saveStringToPreferences(sharedPrefAuthTokenKey, token);
+  }
+
+  @override
+  Future<void> saveUserId(String userId) {
+    return _saveStringToPreferences(sharedPrefUserIdKey, userId);
   }
 
   _getStringFromPreferences(String key) async {
@@ -30,6 +42,7 @@ class LocalPreferencesImpl implements LocalPreferences {
   @override
   Future<void> clearData() async {
     saveAuthToken('');
+    saveUserId('');
   }
 
   @override
