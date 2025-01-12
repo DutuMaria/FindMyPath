@@ -8,6 +8,7 @@ class QuestionScreen extends StatelessWidget {
   final int? selectedAnswerId;
   final Function(int answerId) onAnswerSelected;
   final VoidCallback onNext;
+  final VoidCallback onSkip;
   final VoidCallback onPrevious;
   final VoidCallback onSubmit;
 
@@ -18,6 +19,7 @@ class QuestionScreen extends StatelessWidget {
     required this.totalQuestions,
     required this.onAnswerSelected,
     required this.onNext,
+    required this.onSkip,
     required this.onPrevious,
     required this.onSubmit,
     this.selectedAnswerId,
@@ -91,20 +93,32 @@ class QuestionScreen extends StatelessWidget {
       children: [
         Flexible(
           child: ElevatedButton(
-              onPressed: currentIndex > 0 ? onPrevious : null,
-              child: const Text("Previous")),
+            onPressed: currentIndex > 0 ? onPrevious : null,
+            child: const Text("Previous"),
+          ),
+        ),
+        Visibility(
+          visible: currentIndex < totalQuestions - 1,
+          child: Flexible(
+            child: ElevatedButton(
+              onPressed: onSkip,
+              child: const Text("Skip"),
+            ),
+          ),
         ),
         currentIndex < totalQuestions - 1
             ? Flexible(
-                child: ElevatedButton(
-                    onPressed: selectedAnswerId != null ? onNext : null,
-                    child: const Text("Next")),
-              )
+          child: ElevatedButton(
+            onPressed: selectedAnswerId != null ? onNext : null,
+            child: const Text("Next"),
+          ),
+        )
             : Flexible(
-                child: ElevatedButton(
-                    onPressed: selectedAnswerId != null ? onSubmit : null,
-                    child: const Text("Submit")),
-              )
+          child: ElevatedButton(
+            onPressed: selectedAnswerId != null ? onSubmit : null,
+            child: const Text("Submit"),
+          ),
+        ),
       ],
     );
   }
