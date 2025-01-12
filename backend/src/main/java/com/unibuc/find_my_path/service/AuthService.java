@@ -1,6 +1,7 @@
 package com.unibuc.find_my_path.service;
 
 import com.unibuc.find_my_path.dto.LoginRequest;
+import com.unibuc.find_my_path.dto.LoginResponseDto;
 import com.unibuc.find_my_path.dto.RegisterRequest;
 import com.unibuc.find_my_path.model.FindMyPathUser;
 import com.unibuc.find_my_path.repository.FindMyPathUserRepository;
@@ -41,7 +42,7 @@ public class AuthService {
         return "User registered successfully";
     }
 
-    public String login(LoginRequest request) {
+    public LoginResponseDto login(LoginRequest request) {
         FindMyPathUser user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
@@ -49,6 +50,6 @@ public class AuthService {
             throw new RuntimeException("Invalid credentials");
         }
 
-        return jwtUtil.generateToken(user.getEmail());
+        return new LoginResponseDto(jwtUtil.generateToken(user.getEmail()), user.getUserId());
     }
 }

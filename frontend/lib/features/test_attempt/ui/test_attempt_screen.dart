@@ -8,9 +8,14 @@ import 'package:frontend/features/test_attempt/ui/widgets/question_screen.dart';
 import 'package:frontend/utils/service_locator.dart';
 
 class TestAttemptScreen extends StatefulWidget {
-  const TestAttemptScreen({super.key, required this.answers});
+  const TestAttemptScreen({
+    super.key,
+    required this.answers,
+    required this.userId,
+  });
 
   final Map<int, int> answers;
+  final String userId;
 
   @override
   State<TestAttemptScreen> createState() => _TestAttemptScreenState();
@@ -25,16 +30,17 @@ class _TestAttemptScreenState extends State<TestAttemptScreen> {
   List<Question> questionList = [];
   int _currentIndex = 0;
   Map<int, int> userAnswers = {}; // questionId -> answerId
-  String userId =
-      "fcf0b46d-2efc-4cc6-88b7-1b15effe0eee"; // Simulating user ID for ratonescu26@gmail.com
 
   @override
   void initState() {
     super.initState();
     fetchQuestions();
 
+    print(GlobalVariables.authToken);
+    print(GlobalVariables.userId);
+
     if (widget.answers.isEmpty) {
-      startTest();
+      startTest(widget.userId);
     } else {
       userAnswers = widget.answers;
       _currentIndex = widget.answers.length - 1;
@@ -88,7 +94,7 @@ class _TestAttemptScreenState extends State<TestAttemptScreen> {
     if (mounted) setState(() {});
   }
 
-  void startTest() {
+  void startTest(String userId) {
     testAttemptServices.startTestAttempt(
       context: context,
       userId: userId,
@@ -128,7 +134,7 @@ class _TestAttemptScreenState extends State<TestAttemptScreen> {
     bool hasTestAttemptInProgress =
         await testAttemptServices.hasTestAttemptInProgress(
       context: context,
-      userId: userId,
+      userId: widget.userId,
     );
 
     return hasTestAttemptInProgress;

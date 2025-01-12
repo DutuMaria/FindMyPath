@@ -35,3 +35,15 @@ Map<String, dynamic> _$$LoginRequestImplToJson(_$LoginRequestImpl instance) =>
       'email': instance.email,
       'password': instance.password,
     };
+
+_$LoginResponseImpl _$$LoginResponseImplFromJson(Map<String, dynamic> json) =>
+    _$LoginResponseImpl(
+      token: json['token'] as String,
+      userId: json['userId'] as String,
+    );
+
+Map<String, dynamic> _$$LoginResponseImplToJson(_$LoginResponseImpl instance) =>
+    <String, dynamic>{
+      'token': instance.token,
+      'userId': instance.userId,
+    };

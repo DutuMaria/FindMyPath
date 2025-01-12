@@ -47,17 +47,24 @@ class AuthService {
         body: jsonEncode(model.toJson()),
       );
 
-      print("aa ${res.body}");
-      print("aa ${res.statusCode}");
-
       httpErrorHandle(
         response: res,
         context: context,
         onSucces: () async {
-          final token = res.body;
+          final decodedBody = jsonDecode(res.body);
+          final LoginResponse jsonResponse =
+              LoginResponse.fromJson(decodedBody);
+
+          final token = jsonResponse.token;
+          final userId = jsonResponse.userId;
+
           final localPreferences = serviceLocator<LocalPreferences>();
           await localPreferences.saveAuthToken(token);
+          await localPreferences.saveUserId(userId);
+
           GlobalVariables.authToken = token;
+          GlobalVariables.userId = userId;
+
           onSuccess();
         },
       );

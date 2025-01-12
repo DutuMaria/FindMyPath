@@ -1,6 +1,7 @@
 package com.unibuc.find_my_path.controller;
 
 import com.unibuc.find_my_path.dto.LoginRequest;
+import com.unibuc.find_my_path.dto.LoginResponseDto;
 import com.unibuc.find_my_path.dto.RegisterRequest;
 import com.unibuc.find_my_path.service.AuthService;
 import jakarta.validation.Valid;
@@ -22,7 +23,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody LoginRequest request) {
+    public LoginResponseDto login(@RequestBody LoginRequest request) {
         return authService.login(request);
     }
 }
