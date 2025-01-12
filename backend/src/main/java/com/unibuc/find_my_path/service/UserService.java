@@ -1,6 +1,7 @@
 package com.unibuc.find_my_path.service;
 
 import com.unibuc.find_my_path.dto.EducationResponseDto;
+import com.unibuc.find_my_path.dto.UpdateUserProfileRequestDto;
 import com.unibuc.find_my_path.dto.UserProfileResponseDto;
 import com.unibuc.find_my_path.dto.UserTestResponseDto;
 import com.unibuc.find_my_path.model.FindMyPathUser;
@@ -61,5 +62,14 @@ public class UserService {
         FindMyPathUser user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
         userRepository.delete(user);
+    }
+
+    public void updateUserProfile(String email, UpdateUserProfileRequestDto request) {
+        FindMyPathUser user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new EntityNotFoundException("User with email " + email + " not found."));
+
+        user.setFirstName(request.getFirstName());
+        user.setLastName(request.getLastName());
+        userRepository.save(user);
     }
 }

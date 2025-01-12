@@ -1,8 +1,11 @@
 package com.unibuc.find_my_path.controller;
 
+import com.unibuc.find_my_path.dto.UpdateUserProfileRequestDto;
 import com.unibuc.find_my_path.dto.UserProfileResponseDto;
 import com.unibuc.find_my_path.dto.UserTestResponseDto;
 import com.unibuc.find_my_path.service.UserService;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,6 +49,18 @@ public class UserController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Error deleting user account: " + e.getMessage());
+        }
+    }
+
+    @PutMapping("/update-profile")
+    public ResponseEntity<String> updateUserProfile(@RequestBody @Valid UpdateUserProfileRequestDto request, Principal principal) {
+        try {
+            userService.updateUserProfile(principal.getName(), request);
+            return ResponseEntity.ok("Profile updated successfully.");
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while updating the profile.");
         }
     }
 }
