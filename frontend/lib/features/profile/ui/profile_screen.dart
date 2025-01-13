@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/features/profile/ui/edit_profile_screen.dart';
 import 'package:frontend/features/profile/ui/widgets/education_tile.dart';
 import 'package:frontend/features/profile/ui/widgets/section_header.dart';
 import 'package:frontend/features/profile/ui/widgets/test_history_tile.dart';
@@ -42,7 +43,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: CustomAppBar(
-          title: '',
+          title: 'Profile',
           leadingIcon: CustomBackButton(
             callback: () {
               Navigator.of(context).pop();
@@ -73,8 +74,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         const SizedBox(
                           height: 10,
                         ),
-                        const SectionHeader(
-                            title: 'Personal Info', icon: Icons.contact_page),
+
+                        SectionHeader(
+                          title: 'Personal Info',
+                          icon: Icons.contact_page,
+                          isEditable: true,
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const EditProfileScreen( ),
+                              ),
+                            );
+                          },
+                        ),
                         PersonalInfoTile(
                             firstName: userProfile.firstName,
                             lastName: userProfile.lastName,
