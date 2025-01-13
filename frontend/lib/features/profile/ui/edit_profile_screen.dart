@@ -3,6 +3,7 @@ import 'package:frontend/features/auth/ui/widgets/custom_text_form_input.dart';
 import 'package:frontend/models/user_profile.dart';
 
 import '../../../utils/custom_colors.dart';
+import '../../../utils/error_handling.dart';
 import '../../dashboard/ui/widgets/custom_app_bar.dart';
 import '../../dashboard/ui/widgets/custom_back_button.dart';
 import '../logic/profile_services.dart';
@@ -44,7 +45,19 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
 
   void _updateProfileInfo() {
+    UpdateUserProfile updatedProfile = UpdateUserProfile(
+      firstName: firstNameController.text,
+      lastName: lastNameController.text,
+    );
 
+    ProfileServices().updateProfileInfo(
+      context: context,
+      model: updatedProfile,
+      onSuccess: () {
+        showSnackBar(context, 'Profile updated successfully!');
+        Navigator.of(context).pop();
+      },
+    );
   }
 
   @override

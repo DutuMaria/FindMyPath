@@ -251,3 +251,186 @@ abstract class _UserProfile implements UserProfile {
   _$$UserProfileImplCopyWith<_$UserProfileImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
+
+UpdateUserProfile _$UpdateUserProfileFromJson(Map<String, dynamic> json) {
+  return _UpdateUserProfile.fromJson(json);
+}
+
+/// @nodoc
+mixin _$UpdateUserProfile {
+  @JsonKey(name: 'firstName')
+  String get firstName => throw _privateConstructorUsedError;
+  @JsonKey(name: 'lastName')
+  String get lastName => throw _privateConstructorUsedError;
+
+  /// Serializes this UpdateUserProfile to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of UpdateUserProfile
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $UpdateUserProfileCopyWith<UpdateUserProfile> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $UpdateUserProfileCopyWith<$Res> {
+  factory $UpdateUserProfileCopyWith(
+          UpdateUserProfile value, $Res Function(UpdateUserProfile) then) =
+      _$UpdateUserProfileCopyWithImpl<$Res, UpdateUserProfile>;
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'firstName') String firstName,
+      @JsonKey(name: 'lastName') String lastName});
+}
+
+/// @nodoc
+class _$UpdateUserProfileCopyWithImpl<$Res, $Val extends UpdateUserProfile>
+    implements $UpdateUserProfileCopyWith<$Res> {
+  _$UpdateUserProfileCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of UpdateUserProfile
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? firstName = null,
+    Object? lastName = null,
+  }) {
+    return _then(_value.copyWith(
+      firstName: null == firstName
+          ? _value.firstName
+          : firstName // ignore: cast_nullable_to_non_nullable
+              as String,
+      lastName: null == lastName
+          ? _value.lastName
+          : lastName // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$UpdateUserProfileImplCopyWith<$Res>
+    implements $UpdateUserProfileCopyWith<$Res> {
+  factory _$$UpdateUserProfileImplCopyWith(_$UpdateUserProfileImpl value,
+          $Res Function(_$UpdateUserProfileImpl) then) =
+      __$$UpdateUserProfileImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'firstName') String firstName,
+      @JsonKey(name: 'lastName') String lastName});
+}
+
+/// @nodoc
+class __$$UpdateUserProfileImplCopyWithImpl<$Res>
+    extends _$UpdateUserProfileCopyWithImpl<$Res, _$UpdateUserProfileImpl>
+    implements _$$UpdateUserProfileImplCopyWith<$Res> {
+  __$$UpdateUserProfileImplCopyWithImpl(_$UpdateUserProfileImpl _value,
+      $Res Function(_$UpdateUserProfileImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of UpdateUserProfile
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? firstName = null,
+    Object? lastName = null,
+  }) {
+    return _then(_$UpdateUserProfileImpl(
+      firstName: null == firstName
+          ? _value.firstName
+          : firstName // ignore: cast_nullable_to_non_nullable
+              as String,
+      lastName: null == lastName
+          ? _value.lastName
+          : lastName // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$UpdateUserProfileImpl implements _UpdateUserProfile {
+  _$UpdateUserProfileImpl(
+      {@JsonKey(name: 'firstName') required this.firstName,
+      @JsonKey(name: 'lastName') required this.lastName});
+
+  factory _$UpdateUserProfileImpl.fromJson(Map<String, dynamic> json) =>
+      _$$UpdateUserProfileImplFromJson(json);
+
+  @override
+  @JsonKey(name: 'firstName')
+  final String firstName;
+  @override
+  @JsonKey(name: 'lastName')
+  final String lastName;
+
+  @override
+  String toString() {
+    return 'UpdateUserProfile(firstName: $firstName, lastName: $lastName)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$UpdateUserProfileImpl &&
+            (identical(other.firstName, firstName) ||
+                other.firstName == firstName) &&
+            (identical(other.lastName, lastName) ||
+                other.lastName == lastName));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, firstName, lastName);
+
+  /// Create a copy of UpdateUserProfile
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$UpdateUserProfileImplCopyWith<_$UpdateUserProfileImpl> get copyWith =>
+      __$$UpdateUserProfileImplCopyWithImpl<_$UpdateUserProfileImpl>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$UpdateUserProfileImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _UpdateUserProfile implements UpdateUserProfile {
+  factory _UpdateUserProfile(
+          {@JsonKey(name: 'firstName') required final String firstName,
+          @JsonKey(name: 'lastName') required final String lastName}) =
+      _$UpdateUserProfileImpl;
+
+  factory _UpdateUserProfile.fromJson(Map<String, dynamic> json) =
+      _$UpdateUserProfileImpl.fromJson;
+
+  @override
+  @JsonKey(name: 'firstName')
+  String get firstName;
+  @override
+  @JsonKey(name: 'lastName')
+  String get lastName;
+
+  /// Create a copy of UpdateUserProfile
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$UpdateUserProfileImplCopyWith<_$UpdateUserProfileImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}

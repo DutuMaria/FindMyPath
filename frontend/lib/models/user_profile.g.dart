@@ -23,3 +23,17 @@ Map<String, dynamic> _$$UserProfileImplToJson(_$UserProfileImpl instance) =>
       'lastName': instance.lastName,
       'educationList': instance.educationList,
     };
+
+_$UpdateUserProfileImpl _$$UpdateUserProfileImplFromJson(
+        Map<String, dynamic> json) =>
+    _$UpdateUserProfileImpl(
+      firstName: json['firstName'] as String,
+      lastName: json['lastName'] as String,
+    );
+
+Map<String, dynamic> _$$UpdateUserProfileImplToJson(
+        _$UpdateUserProfileImpl instance) =>
+    <String, dynamic>{
+      'firstName': instance.firstName,
+      'lastName': instance.lastName,
+    };

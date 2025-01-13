@@ -75,4 +75,37 @@ class ProfileServices {
 
     return userTests;
   }
+
+  Future<void>  updateProfileInfo({
+    required BuildContext context,
+    required UpdateUserProfile model,
+    required VoidCallback onSuccess,
+  }) async {
+    final appPreferences = serviceLocator<LocalPreferences>();
+    String token = await appPreferences.getAuthToken();
+
+    try {
+      http.Response res = await http.post(
+        Uri.parse('${GlobalVariables.serverUrl}/use/reset-password'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': 'Bearer $token'
+        },
+        body: jsonEncode(model.toJson()),
+      );
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSucces: () async {
+          final decodedBody = jsonDecode(res.body);
+
+          print(decodedBody);
+          onSuccess();
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
 }

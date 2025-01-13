@@ -16,3 +16,14 @@ class UserProfile with _$UserProfile {
   factory UserProfile.fromJson(Map<String, dynamic> json) =>
       _$UserProfileFromJson(json);
 }
+
+@freezed
+class UpdateUserProfile with  _$UpdateUserProfile {
+  factory UpdateUserProfile({
+    @JsonKey(name: 'firstName') required String firstName,
+    @JsonKey(name: 'lastName') required String lastName,
+  }) = _UpdateUserProfile;
+
+  factory UpdateUserProfile.fromJson(Map<String, dynamic> json) =>
+      _$UpdateUserProfileFromJson(json);
+}
