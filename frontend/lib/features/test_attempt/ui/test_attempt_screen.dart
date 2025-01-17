@@ -5,6 +5,7 @@ import 'package:frontend/features/test_attempt/ui/widgets/rating.dart';
 import 'package:frontend/local_storage/storage_service.dart';
 import 'package:frontend/models/question.dart';
 import 'package:frontend/features/test_attempt/ui/widgets/question_screen.dart';
+import 'package:frontend/models/ratings.dart';
 import 'package:frontend/utils/service_locator.dart';
 
 class TestAttemptScreen extends StatefulWidget {
@@ -162,6 +163,15 @@ class _TestAttemptScreenState extends State<TestAttemptScreen> {
       (experienceRating, contentRating) {
         print('Experience Rating: $experienceRating');
         print('Test Content Rating: $contentRating');
+
+        testAttemptServices.rateTestAttempt(
+          context: context,
+          testId: testId,
+          ratings: Ratings(
+            experienceRating: experienceRating,
+            contentRating: contentRating,
+          ),
+        );
       },
     );
 
