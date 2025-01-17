@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:frontend/global_variables.dart';
 import 'package:frontend/local_storage/storage_service.dart';
+import 'package:frontend/models/ratings.dart';
 import 'package:frontend/models/test_attempt.dart';
 import 'package:frontend/utils/error_handling.dart';
 import 'package:frontend/utils/service_locator.dart';
@@ -69,6 +70,38 @@ class TestAttemptServices {
           print(res.statusCode);
           print(res.body);
         },
+      );
+    } catch (e) {
+      print(e.toString());
+      showSnackBar(context, e.toString());
+    }
+  }
+
+  void rateTestAttempt({
+    required BuildContext context,
+    required int testId,
+    required Ratings ratings,
+  }) async {
+    final appPreferences = serviceLocator<LocalPreferences>();
+    String token = await appPreferences.getAuthToken();
+
+    try {
+      http.Response res = await http.put(
+        Uri.parse('${GlobalVariables.serverUrl}/test-attempts/$testId'),
+        body: jsonEncode(ratings),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': 'Bearer $token'
+        },
+      );
+
+      print(ratings.contentRating);
+      print(res.statusCode);
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSucces: () {},
       );
     } catch (e) {
       print(e.toString());

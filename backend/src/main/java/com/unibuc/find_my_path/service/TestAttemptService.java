@@ -53,6 +53,8 @@ public class TestAttemptService {
         testAttempt.setUser(userOptional.get());
         testAttempt.setAttemptDate(LocalDateTime.now());
         testAttempt.setIsCompleted(false);
+        testAttempt.setTestRating(0);
+        testAttempt.setExperienceRating(0);
         testAttemptRepository.save(testAttempt);
 
         return new TestAttemptResponseDto(

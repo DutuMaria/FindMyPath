@@ -74,20 +74,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     size: 90,
                   )),
                   GenerateCV(userProfile: userProfile),
-                  // Center(
-                  //   child: ElevatedButton.icon(
-                  //     onPressed: () {},
-                  //     style: ElevatedButton.styleFrom(
-                  //       padding: const EdgeInsets.symmetric(
-                  //           vertical: 5, horizontal: 20),
-                  //       backgroundColor: const Color.fromARGB(255, 49, 26, 72),
-                  //       shape: RoundedRectangleBorder(
-                  //         borderRadius: BorderRadius.circular(13.0),
-                  //       ),
-                  //     ),
-                  //     label: const Text("Generate CV"),
-                  //   ),
-                  // ),
                   const SizedBox(
                     height: 10,
                   ),

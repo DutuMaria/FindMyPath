@@ -63,7 +63,7 @@ public class TestAttemptController {
                 .body(testId);
     }
 
-    @PostMapping("/{id}/rate")
+    @PutMapping("/{id}/rate")
     public ResponseEntity<String> rateTestAndExperience(
             @PathVariable long id,
             @RequestBody @Valid TestResultRatingRequestDto request) {
