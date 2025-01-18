@@ -1,9 +1,6 @@
 package com.unibuc.find_my_path.controller;
 
-import com.unibuc.find_my_path.dto.ResetPasswordRequestDto;
-import com.unibuc.find_my_path.dto.UpdateUserProfileRequestDto;
-import com.unibuc.find_my_path.dto.UserProfileResponseDto;
-import com.unibuc.find_my_path.dto.UserTestResponseDto;
+import com.unibuc.find_my_path.dto.*;
 import com.unibuc.find_my_path.service.UserService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
@@ -76,6 +73,18 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while resetting the password.");
+        }
+    }
+
+    @PostMapping("/add-skills")
+    public ResponseEntity<String> addSkillsToUserProfile(@RequestBody @Valid AddSkillsRequestDto request, Principal principal) {
+        try {
+            userService.addSkillsToUserProfile(principal.getName(), request);
+            return ResponseEntity.ok("Skills added successfully to your profile.");
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while adding skills to the profile.");
         }
     }
 }

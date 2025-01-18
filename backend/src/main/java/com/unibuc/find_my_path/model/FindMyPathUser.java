@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -40,4 +41,19 @@ public class FindMyPathUser {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<TestAttempt> testAttemptList;
 
+    @ManyToMany
+    @JoinTable(
+            name = "user_soft_skills",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "soft_skill_id")
+    )
+    private List<SoftSkill> softSkills = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_hard_skills",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "hard_skill_id")
+    )
+    private List<HardSkill> hardSkills = new ArrayList<>();
 }
