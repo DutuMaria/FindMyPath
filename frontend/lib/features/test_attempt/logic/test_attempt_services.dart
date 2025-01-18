@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend/global_variables.dart';
 import 'package:frontend/local_storage/storage_service.dart';
 import 'package:frontend/models/ratings.dart';
-import 'package:frontend/models/test_attempt.dart';
+import 'package:frontend/models/sum_of_ratings.dart';
 import 'package:frontend/utils/error_handling.dart';
 import 'package:frontend/utils/service_locator.dart';
 import 'package:http/http.dart' as http;
@@ -36,6 +36,7 @@ class TestAttemptServices {
         },
       );
     } catch (e) {
+      print(e.toString());
       showSnackBar(context, e.toString());
     }
 
@@ -95,18 +96,45 @@ class TestAttemptServices {
         },
       );
 
-      print(ratings.contentRating);
-      print(res.statusCode);
-
       httpErrorHandle(
         response: res,
         context: context,
         onSucces: () {},
       );
     } catch (e) {
-      print(e.toString());
       showSnackBar(context, e.toString());
     }
+  }
+
+  Future<SumOfRatings?> getRatingsSummary({
+    required BuildContext context,
+  }) async {
+    final appPreferences = serviceLocator<LocalPreferences>();
+    String token = await appPreferences.getAuthToken();
+    SumOfRatings? ratings;
+
+    try {
+      http.Response res = await http.get(
+        Uri.parse('${GlobalVariables.serverUrl}/test-attempts/ratings-summary'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': 'Bearer $token'
+        },
+      );
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSucces: () {
+          final decodedBody = jsonDecode(res.body);
+          ratings = SumOfRatings.fromJson(decodedBody);
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+
+    return ratings;
   }
 
   Future<bool> hasTestAttemptInProgress({
