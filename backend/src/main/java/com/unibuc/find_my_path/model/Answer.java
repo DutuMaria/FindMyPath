@@ -27,4 +27,28 @@ public class Answer {
 
     @ManyToMany(mappedBy = "answerList")
     private List<TestAttempt> testAttemptList;
+
+    @ManyToMany
+    @JoinTable(
+            name = "answer_soft_skills",
+            joinColumns = @JoinColumn(name = "answer_id"),
+            inverseJoinColumns = @JoinColumn(name = "soft_skill_id")
+    )
+    private List<SoftSkill> softSkillList;
+
+    @ManyToMany
+    @JoinTable(
+            name = "answer_hard_skills",
+            joinColumns = @JoinColumn(name = "answer_id"),
+            inverseJoinColumns = @JoinColumn(name = "hard_skill_id")
+    )
+    private List<HardSkill> hardSkillList;
+
+    @ManyToMany
+    @JoinTable(
+            name = "answer_interests",
+            joinColumns = @JoinColumn(name = "answer_id"),
+            inverseJoinColumns = @JoinColumn(name = "interest_id")
+    )
+    private List<Interest> interestList;
 }

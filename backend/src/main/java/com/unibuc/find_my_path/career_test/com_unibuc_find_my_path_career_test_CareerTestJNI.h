@@ -9,11 +9,11 @@ extern "C" {
 #endif
 /*
  * Class:     com_unibuc_find_my_path_career_test_CareerTestJNI
- * Method:    loadCareerTestResults
- * Signature: ()V
+ * Method:    processCareerTestResults
+ * Signature: (Ljava/util/ArrayList;Ljava/util/ArrayList;Ljava/util/ArrayList;Ljava/util/ArrayList;Ljava/util/ArrayList;Ljava/util/ArrayList;)Ljava/util/ArrayList;
  */
-JNIEXPORT void JNICALL Java_com_unibuc_find_1my_1path_career_1test_CareerTestJNI_loadCareerTestResults
-  (JNIEnv *, jobject);
+JNIEXPORT jobject JNICALL Java_com_unibuc_find_1my_1path_career_1test_CareerTestJNI_processCareerTestResults
+  (JNIEnv *, jobject, jobject, jobject, jobject, jobject, jobject, jobject);
 
 #ifdef __cplusplus
 }

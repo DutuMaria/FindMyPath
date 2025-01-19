@@ -10,15 +10,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/careers")
 public class CareerController {
-    private final CareerTestJNI careerTestJNI;
+    /*private final CareerTestJNI careerTestJNI;*/
 
-    public CareerController() {
+    /*public CareerController() {
         careerTestJNI = new CareerTestJNI();
-    }
+    } */
 
-    @GetMapping()
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void testCLibrary() {
-        careerTestJNI.executeCareerTest(null);
-    }
+//    @GetMapping()
+//    @ResponseStatus(HttpStatus.NO_CONTENT)
+//    public void testCLibrary() {
+//
+//    }
 }

@@ -78,4 +78,10 @@ public class TestAttemptController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while saving the ratings.");
         }
     }
+
+    @PostMapping("/process-results/{testAttemptId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void processTestResults(@PathVariable Long testAttemptId) {
+        testAttemptService.processTestResults(testAttemptId);
+    }
 }
