@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -54,5 +55,27 @@ public class CareerService {
         return careerRepository.findAll().stream()
                 .map(Career::getCareerId)
                 .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    public List<CareerDetailsResponseDto> getCareerResults(ArrayList<Long> careerIds) {
+        List<Career> careerList = careerRepository.findAllById(careerIds);
+
+        // Ensure results order
+        Map<Long, Career> careerMap = careerList.stream()
+                .collect(Collectors.toMap(Career::getCareerId, career -> career));
+
+        return careerIds.stream()
+                .map(careerMap::get)
+                .map(career -> new CareerDetailsResponseDto(
+                        career.getCareerId(),
+                        career.getTitle(),
+                        career.getDescription(),
+                        career.getIndustry(),
+                        career.getSalaryRange(),
+                        career.getExperienceLevel().getExperienceLevel(),
+                        null,
+                        null
+                ))
+                .toList();
     }
 }

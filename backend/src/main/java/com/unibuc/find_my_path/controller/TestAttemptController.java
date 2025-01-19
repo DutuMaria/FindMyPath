@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -91,8 +90,8 @@ public class TestAttemptController {
     }
 
     @PostMapping("/process-results/{testAttemptId}")
-    public ResponseEntity<ArrayList<Long>> processTestResults(@PathVariable Long testAttemptId) {
-        ArrayList<Long> response = testAttemptService.processTestResults(testAttemptId);
+    public ResponseEntity<List<CareerDetailsResponseDto>> processTestResults(@PathVariable Long testAttemptId) {
+        List<CareerDetailsResponseDto> response = testAttemptService.getTestResults(testAttemptId);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(response);
