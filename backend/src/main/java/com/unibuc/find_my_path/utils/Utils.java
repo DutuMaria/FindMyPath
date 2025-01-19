@@ -29,7 +29,7 @@ public class Utils {
         return skillSet;
     }
 
-    public static void executeCareerTest(
+    public static ArrayList<Long> executeCareerTest(
             ArrayList<ArrayList<ArrayList<String>>> answersSkillSet,
             ArrayList<ArrayList<ArrayList<String>>> careerSkillSet,
             ArrayList<Long> careerIds,
@@ -37,7 +37,7 @@ public class Utils {
             ArrayList<String> softSkills,
             ArrayList<String> interests
     ) {
-        new CareerTestJNI().executeCareerTest(
+        return new CareerTestJNI().executeCareerTest(
                 answersSkillSet, careerSkillSet, careerIds, hardSkills, softSkills, interests);
     }
 }

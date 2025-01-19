@@ -213,7 +213,7 @@ public class TestAttemptService {
         return response;
     }
 
-    public void processTestResults(long testAttemptId) {
+    public ArrayList<Long> processTestResults(long testAttemptId) {
         Optional<TestAttempt> testAttemptOptional = testAttemptRepository.findById(testAttemptId);
         if (testAttemptOptional.isEmpty()) {
             throw new EntityNotFoundException("Test attempt with id " + testAttemptId + " not found.");
@@ -227,7 +227,7 @@ public class TestAttemptService {
         ArrayList<String> softSkills = softSkillService.getAllSoftSkillNames();
         ArrayList<String> interests = interestService.getAllInterestNames();
 
-        Utils.executeCareerTest(answersSkillSet, careersSkillSet, careerIds, hardSkills, softSkills, interests);
+        return Utils.executeCareerTest(answersSkillSet, careersSkillSet, careerIds, hardSkills, softSkills, interests);
     }
 
     public ArrayList<ArrayList<ArrayList<String>>> getTestAttemptAnswersSkillSet(TestAttempt testAttempt) {

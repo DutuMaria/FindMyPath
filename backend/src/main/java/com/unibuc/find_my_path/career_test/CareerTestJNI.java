@@ -16,7 +16,7 @@ public class CareerTestJNI {
         ArrayList<String> interests
     );
 
-    public void executeCareerTest(
+    public ArrayList<Long> executeCareerTest(
         ArrayList<ArrayList<ArrayList<String>>> answersSkillSet,
         ArrayList<ArrayList<ArrayList<String>>> careerSkillSet,
         ArrayList<Long> careerIds,
@@ -24,7 +24,7 @@ public class CareerTestJNI {
         ArrayList<String> softSkills,
         ArrayList<String> interests
     ) {
-        new CareerTestJNI().processCareerTestResults(
+        return new CareerTestJNI().processCareerTestResults(
                 answersSkillSet, careerSkillSet, careerIds, hardSkills, softSkills, interests);
     }
 }
