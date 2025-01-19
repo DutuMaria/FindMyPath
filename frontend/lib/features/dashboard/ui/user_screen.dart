@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/features/admin/ui/admin_home.dart';
-import 'package:frontend/features/admin/ui/widgets/analytics_screen.dart';
 import 'package:frontend/features/dashboard/ui/settings_screen.dart';
+import 'package:frontend/features/profile/ui/profile_screen.dart';
+import 'package:frontend/features/test_attempt/ui/test_info_screen.dart';
 
-class AdminScreen extends StatefulWidget {
-  const AdminScreen({super.key});
+class UserScreen extends StatefulWidget {
+  const UserScreen({super.key});
 
   @override
-  State<AdminScreen> createState() => _AdminScreenState();
+  State<UserScreen> createState() => _UserScreenState();
 }
 
-class _AdminScreenState extends State<AdminScreen> {
+class _UserScreenState extends State<UserScreen> {
   int _page = 0;
   double bottomBarWidth = 42;
   double bottomBarBorderWidth = 5;
 
   late List<Widget> pages = [
-    const AdminHome(),
-    const AnalyticsScreen(),
+    const ProfileScreen(),
+    const TestInfoScreen(),
     const SettingsScreen(),
   ];
 
@@ -52,15 +52,15 @@ class _AdminScreenState extends State<AdminScreen> {
             label: 'Home',
           ),
 
-          /// analytics
+          /// start test
           BottomNavigationBarItem(
             icon: SizedBox(
               width: bottomBarWidth,
               child: const Icon(
-                Icons.analytics_outlined,
+                Icons.pending_actions_sharp,
               ),
             ),
-            label: 'Analytics',
+            label: 'FindMyPath',
           ),
 
           /// settings

@@ -2,7 +2,11 @@ package com.unibuc.find_my_path.service;
 
 import com.unibuc.find_my_path.dto.*;
 import com.unibuc.find_my_path.model.FindMyPathUser;
+import com.unibuc.find_my_path.model.HardSkill;
+import com.unibuc.find_my_path.model.SoftSkill;
 import com.unibuc.find_my_path.repository.FindMyPathUserRepository;
+import com.unibuc.find_my_path.repository.HardSkillRepository;
+import com.unibuc.find_my_path.repository.SoftSkillRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,6 +20,10 @@ public class UserService {
     @Autowired
     private FindMyPathUserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    @Autowired
+    private SoftSkillRepository softSkillRepository;
+    @Autowired
+    private HardSkillRepository hardSkillRepository;
 
     public UserService(PasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
@@ -86,5 +94,29 @@ public class UserService {
 
         user.setPasswordHash(passwordEncoder.encode(request.getNewPassword()));
         userRepository.save(user);
+    }
+
+    public void addSkillsToUserProfile(String email, AddSkillsRequestDto request) {
+        FindMyPathUser user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new EntityNotFoundException("User with email " + email + " not found."));
+
+        if (request.getSoftSkillIds() != null) {
+            List<SoftSkill> softSkills = softSkillRepository.findAllById(request.getSoftSkillIds());
+            user.getSoftSkills().addAll(softSkills);
+        }
+
+        if (request.getHardSkillIds() != null) {
+            List<HardSkill> hardSkills = hardSkillRepository.findAllById(request.getHardSkillIds());
+            user.getHardSkills().addAll(hardSkills);
+        }
+
+        userRepository.save(user);
+    }
+
+
+    public Boolean isAdmin(String email) {
+        FindMyPathUser user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        return user.getIsAdmin();
     }
 }

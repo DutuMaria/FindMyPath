@@ -54,7 +54,7 @@ class GlobalThemeData {
   }
 
   static const ColorScheme lightColorScheme = ColorScheme(
-    primary: primaryBlue,
+    primary: CustomColors.primaryPink,
     onPrimary: Colors.white, // White for text on primary blue
     secondary: Color(0xFFD3EAF2), // Muted blue for secondary
     onSecondary: Color(0xFF322942), // Dark text for secondary

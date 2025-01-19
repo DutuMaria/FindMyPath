@@ -7,6 +7,13 @@ import com.unibuc.find_my_path.dto.TestResultRatingRequestDto;
 import com.unibuc.find_my_path.model.*;
 import com.unibuc.find_my_path.repository.*;
 import com.unibuc.find_my_path.utils.Utils;
+import com.unibuc.find_my_path.dto.*;
+import com.unibuc.find_my_path.model.Answer;
+import com.unibuc.find_my_path.model.FindMyPathUser;
+import com.unibuc.find_my_path.model.TestAttempt;
+import com.unibuc.find_my_path.repository.AnswerRepository;
+import com.unibuc.find_my_path.repository.FindMyPathUserRepository;
+import com.unibuc.find_my_path.repository.TestAttemptRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -57,6 +64,8 @@ public class TestAttemptService {
         testAttempt.setUser(userOptional.get());
         testAttempt.setAttemptDate(LocalDateTime.now());
         testAttempt.setIsCompleted(false);
+        testAttempt.setTestRating(0);
+        testAttempt.setExperienceRating(0);
         testAttemptRepository.save(testAttempt);
 
         return new TestAttemptResponseDto(
@@ -138,6 +147,70 @@ public class TestAttemptService {
         testAttempt.setTestRating(request.getTestRating());
         testAttempt.setExperienceRating(request.getExperienceRating());
         testAttemptRepository.save(testAttempt);
+    }
+
+    public RatingsResponseDto getRatingsSummary() {
+        List<TestAttempt> testAttempts = testAttemptRepository.findAll();
+
+        int sumOfExperienceRating = 0;
+        int sumOfContentRating = 0;
+        int numberOfRatings = 0;
+        int numberOfOneExperienceRating = 0;
+        int numberOfTwoExperienceRating = 0;
+        int numberOfThreeExperienceRating = 0;
+        int numberOfFourExperienceRating = 0;
+        int numberOfFiveExperienceRating = 0;
+
+        int numberOfOneContentRating = 0;
+        int numberOfTwoContentRating = 0;
+        int numberOfThreeContentRating = 0;
+        int numberOfFourContentRating = 0;
+        int numberOfFiveContentRating = 0;
+
+        for (TestAttempt testAttempt : testAttempts) {
+
+            if (testAttempt.getExperienceRating() != null && testAttempt.getTestRating() != null) {
+                switch (testAttempt.getExperienceRating()) {
+                    case 1 -> numberOfOneExperienceRating++;
+                    case 2 -> numberOfTwoExperienceRating++;
+                    case 3 -> numberOfThreeExperienceRating++;
+                    case 4 -> numberOfFourExperienceRating++;
+                    case 5 -> numberOfFiveExperienceRating++;
+                }
+                sumOfExperienceRating += testAttempt.getExperienceRating();
+
+                switch (testAttempt.getTestRating()) {
+                    case 1 -> numberOfOneContentRating++;
+                    case 2 -> numberOfTwoContentRating++;
+                    case 3 -> numberOfThreeContentRating++;
+                    case 4 -> numberOfFourContentRating++;
+                    case 5 -> numberOfFiveContentRating++;
+                }
+                sumOfContentRating += testAttempt.getTestRating();
+
+                numberOfRatings++;
+            }
+        }
+
+        RatingsResponseDto response = new RatingsResponseDto();
+
+        response.setNumberOfOneExperienceRating(numberOfOneExperienceRating);
+        response.setNumberOfTwoExperienceRating(numberOfTwoExperienceRating);
+        response.setNumberOfThreeExperienceRating(numberOfThreeExperienceRating);
+        response.setNumberOfFourExperienceRating(numberOfFourExperienceRating);
+        response.setNumberOfFiveExperienceRating(numberOfFiveExperienceRating);
+        response.setSumOfExperienceRating(sumOfExperienceRating);
+
+        response.setNumberOfOneContentRating(numberOfOneContentRating);
+        response.setNumberOfTwoContentRating(numberOfTwoContentRating);
+        response.setNumberOfThreeContentRating(numberOfThreeContentRating);
+        response.setNumberOfFourContentRating(numberOfFourContentRating);
+        response.setNumberOfFiveContentRating(numberOfFiveContentRating);
+        response.setSumOfContentRating(sumOfContentRating);
+
+        response.setNumberOfRatings(numberOfRatings);
+
+        return response;
     }
 
     public void processTestResults(long testAttemptId) {

@@ -174,4 +174,34 @@ class AdminServices {
       showSnackBar(context, e.toString());
     }
   }
+
+  Future<bool> isAdmin({
+    required BuildContext context,
+  }) async {
+    final appPreferences = serviceLocator<LocalPreferences>();
+    String token = await appPreferences.getAuthToken();
+    bool isAdmin = false;
+
+    try {
+      http.Response res = await http.get(
+        Uri.parse('${GlobalVariables.serverUrl}/user/isAdmin'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': 'Bearer $token'
+        },
+      );
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSucces: () {
+          isAdmin = jsonDecode(res.body);
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+
+    return isAdmin;
+  }
 }

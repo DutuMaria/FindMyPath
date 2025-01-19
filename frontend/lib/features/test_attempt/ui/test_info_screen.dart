@@ -4,6 +4,7 @@ import 'package:frontend/features/dashboard/ui/widgets/custom_back_button.dart';
 import 'package:frontend/features/test_attempt/ui/test_attempt_screen.dart';
 import 'package:frontend/features/test_attempt/ui/widgets/custom_info_row.dart';
 import 'package:frontend/local_storage/storage_service.dart';
+import 'package:frontend/utils/custom_colors.dart';
 import 'package:frontend/utils/service_locator.dart';
 
 class TestInfoScreen extends StatelessWidget {
@@ -12,14 +13,15 @@ class TestInfoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        title: 'Test Info',
-        leadingIcon: CustomBackButton(
-          callback: () {
-            Navigator.of(context).pop();
-          },
-        ),
-      ),
+      // appBar: CustomAppBar(
+      //   title: 'Test Info',
+      //   leadingIcon: CustomBackButton(
+      //     callback: () {
+      //       Navigator.of(context).pop();
+      //     },
+      //   ),
+      // ),
+
       body: Stack(
         children: [
           Container(
@@ -68,7 +70,7 @@ class TestInfoScreen extends StatelessWidget {
                   Center(
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue,
+                        backgroundColor: CustomColors.primaryPink,
                         padding: const EdgeInsets.symmetric(
                           horizontal: 50,
                           vertical: 15,

@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 
 class LogoImage extends StatelessWidget {
-  const LogoImage({super.key});
+  const LogoImage({super.key, this.source});
+
+  final String? source;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 150,
       child: Image.network(
-        'https://wwohqlpxrsvgdyijgmgc.supabase.co/storage/v1/object/public/images/logo.png',
+        source ??
+            'https://wwohqlpxrsvgdyijgmgc.supabase.co/storage/v1/object/public/images/logo.png?t=2025-01-19T00%3A25%3A45.705Z',
         loadingBuilder: (BuildContext context, Widget child,
             ImageChunkEvent? loadingProgress) {
           if (loadingProgress == null) {
