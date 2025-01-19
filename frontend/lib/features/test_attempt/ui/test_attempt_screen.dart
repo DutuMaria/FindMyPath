@@ -6,6 +6,7 @@ import 'package:frontend/local_storage/storage_service.dart';
 import 'package:frontend/models/question.dart';
 import 'package:frontend/features/test_attempt/ui/widgets/question_screen.dart';
 import 'package:frontend/models/ratings.dart';
+import 'package:frontend/utils/custom_colors.dart';
 import 'package:frontend/utils/service_locator.dart';
 
 class TestAttemptScreen extends StatefulWidget {
@@ -59,6 +60,7 @@ class _TestAttemptScreenState extends State<TestAttemptScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Question ${_currentIndex + 1} of ${questionList.length}'),
+        backgroundColor: CustomColors.primaryPink,
       ),
       body: PageView.builder(
         controller: _pageController,

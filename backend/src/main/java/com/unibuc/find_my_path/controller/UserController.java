@@ -87,4 +87,14 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while adding skills to the profile.");
         }
     }
+
+
+    @GetMapping("/isAdmin")
+    public ResponseEntity<Boolean> isAdmin(Authentication authentication) {
+        String email = authentication.getName();
+        boolean isAdmin = userService.isAdmin(email);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(isAdmin);
+    }
 }

@@ -2,12 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:frontend/features/profile/ui/widgets/education_tile.dart';
 import 'package:frontend/features/profile/ui/widgets/generate_cv.dart';
 import 'package:frontend/features/profile/ui/widgets/section_header.dart';
-import 'package:frontend/features/profile/ui/widgets/test_button.dart';
 import 'package:frontend/features/profile/ui/widgets/test_history_tile.dart';
 import 'package:frontend/features/profile/ui/widgets/personal_info_tile.dart';
 import 'package:frontend/features/profile/logic/profile_services.dart';
-import 'package:frontend/features/dashboard/ui/widgets/custom_app_bar.dart';
-import 'package:frontend/features/dashboard/ui/widgets/custom_back_button.dart';
 import 'package:frontend/models/user_profile.dart';
 import 'package:frontend/models/user_test.dart';
 
@@ -43,14 +40,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        title: '',
-        leadingIcon: CustomBackButton(
-          callback: () {
-            Navigator.of(context).pop();
-          },
-        ),
-      ),
+      // appBar: CustomAppBar(
+      //   title: '',
+      //   leadingIcon: CustomBackButton(
+      //     callback: () {
+      //       Navigator.of(context).pop();
+      //     },
+      //   ),
+      // ),
       body: Stack(
         children: [
           Container(

@@ -1,6 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:frontend/features/admin/logic/admin_services.dart';
+import 'package:frontend/features/admin/ui/admin_screen.dart';
+import 'package:frontend/features/dashboard/ui/user_screen.dart';
 import 'package:frontend/utils/logo_image.dart';
 
 import '../../global_variables.dart';
@@ -18,10 +21,13 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   final appPreferences = serviceLocator<LocalPreferences>();
+  final AdminServices adminServices = AdminServices();
+  bool isAdmin = false;
 
   @override
   void initState() {
     super.initState();
+    verifyUserRole();
 
     Completer<String> timerCompleter = Completer();
 
@@ -37,7 +43,8 @@ class _SplashScreenState extends State<SplashScreen> {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => const DashboardScreen(),
+            builder: (context) =>
+                isAdmin ? const AdminScreen() : const UserScreen(),
           ),
         );
       } else {
@@ -49,6 +56,11 @@ class _SplashScreenState extends State<SplashScreen> {
         );
       }
     });
+  }
+
+  verifyUserRole() async {
+    isAdmin = await adminServices.isAdmin(context: context);
+    if (mounted) setState(() {});
   }
 
   @override
