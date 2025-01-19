@@ -11,6 +11,7 @@
 #include <string.h>
 
 #define SKILL_NUMBER 3
+#define CAREER_RESULTS_SIZE 5
 
 typedef struct {
     float* hardSkills;
@@ -376,6 +377,31 @@ void mapJavaObjectsToCObjects(JNIEnv *env, jobject jHardSkills, jobject jSoftSki
 // -------- Map Java Objects To C Objects END --------
 
 
+// -------- Map Java Objects To C Objects START --------
+
+jobject mapCLongArrayToJArrayList(JNIEnv* env, const long* results) {
+    jclass jArrayListClass = (*env)->FindClass(env, "java/util/ArrayList");
+    jmethodID jArrayListConstructor = (*env)->GetMethodID(env, jArrayListClass, "<init>", "()V");
+    jobject jArrayList = (*env)->NewObject(env, jArrayListClass, jArrayListConstructor);
+    jmethodID jArrayListAddMethod = (*env)->GetMethodID(env, jArrayListClass, "add", "(Ljava/lang/Object;)Z");
+
+    for (int i = 0; i < CAREER_RESULTS_SIZE; i++) {
+        jclass jLongClass = (*env)->FindClass(env, "java/lang/Long");
+        jmethodID jLongConstructor = (*env)->GetMethodID(env, jLongClass, "<init>", "(J)V");
+        jobject jLongObject = (*env)->NewObject(env, jLongClass, jLongConstructor, (jlong)results[i]);
+
+        (*env)->CallBooleanMethod(env, jArrayList, jArrayListAddMethod, jLongObject);
+
+        (*env)->DeleteLocalRef(env, jLongObject);
+        (*env)->DeleteLocalRef(env, jLongClass);
+    }
+
+    return jArrayList;
+}
+
+// -------- Map Java Objects To C Objects END --------
+
+
 int* processCareerTestResults(JNIEnv *env, jobject jAnswersSkillSet, jobject jCareersSkillSet,
     jobject jCareerIds, jobject jHardSkills, jobject jSoftSkills, jobject jInterests) {
     int hardSkillsSize, softSkillsSize, interestsSize, answersSkillSetSize, careersSkillSetSize, careerIdsSize;
@@ -415,8 +441,8 @@ int* processCareerTestResults(JNIEnv *env, jobject jAnswersSkillSet, jobject jCa
 JNIEXPORT jobject JNICALL Java_com_unibuc_find_1my_1path_career_1test_CareerTestJNI_processCareerTestResults
   (JNIEnv *env, jobject thisJObj,  jobject jAnswersSkillSet, jobject jCareerSkillSet, jobject jCareerIds,
       jobject jHardSkills, jobject jSoftSkills, jobject jInterests) {
-    long* careerTestResults = (long*) processCareerTestResults(env, jAnswersSkillSet, jCareerSkillSet,
+    const long* careerTestResults = (long*) processCareerTestResults(env, jAnswersSkillSet, jCareerSkillSet,
         jCareerIds, jHardSkills, jSoftSkills, jInterests);
 
-    return NULL;
+    return mapCLongArrayToJArrayList(env, careerTestResults);
 }
