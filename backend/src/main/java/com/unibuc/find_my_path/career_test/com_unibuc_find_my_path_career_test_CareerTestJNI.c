@@ -61,7 +61,7 @@ void freeCSkillSet(SkillSet* skillSet, const int skillSetSize) {
     }
 }
 
-int isSkillInSkillList(const char* skillName, const char** skillList, const int skillListSize) {
+int indexOfSkillInSkillList(const char* skillName, const char** skillList, const int skillListSize) {
     if (skillName == NULL || skillList == NULL || skillListSize < 1) {
         return -1;
     }
@@ -119,15 +119,15 @@ SkillSet* mapJavaObjectsToCSkillSet(JNIEnv *env, jobject arrayList3D, int *size,
                 const char *skillName = (*env)->GetStringUTFChars(env, jSkillName, NULL);
 
                 if (j == 0) {
-                    int index = isSkillInSkillList(skillName, hardSkills, hardSkillsSize);
+                    int index = indexOfSkillInSkillList(skillName, hardSkills, hardSkillsSize);
                     skillSet[i].hardSkills[index] = 1;
                 }
                 if (j == 1) {
-                    int index = isSkillInSkillList(skillName, softSkills, softSkillsSize);
+                    int index = indexOfSkillInSkillList(skillName, softSkills, softSkillsSize);
                     skillSet[i].softSkills[index] = 1;
                 }
                 if (j == 2) {
-                    int index = isSkillInSkillList(skillName, interests, interestsSize);
+                    int index = indexOfSkillInSkillList(skillName, interests, interestsSize);
                     skillSet[i].interests[index] = 1;
                 }
 
