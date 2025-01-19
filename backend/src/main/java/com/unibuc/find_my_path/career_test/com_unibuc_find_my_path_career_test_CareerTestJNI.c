@@ -10,9 +10,9 @@
 #include <string.h>
 
 typedef struct {
-    int* hardSkills;
-    int* softSkills;
-    int* interests;
+    float* hardSkills;
+    float* softSkills;
+    float* interests;
 } SkillSet;
 
 char** mapJavaObjectToCStrings(JNIEnv *env, jobject arrayList, int *size) {
@@ -85,17 +85,10 @@ SkillSet* mapJavaObjectsToCSkillSet(JNIEnv *env, jobject arrayList3D, int *size,
     *size = arrayList3DSize;
 
     SkillSet* skillSet = (SkillSet*) malloc(arrayList3DSize * sizeof(SkillSet));
-    memset(skillSet, 0, arrayList3DSize * sizeof(SkillSet));
-
     for (int i = 0; i < arrayList3DSize; i++) {
-        skillSet[i].hardSkills = (int*) malloc(hardSkillsSize * sizeof(int));
-        memset(skillSet[i].hardSkills, 0, hardSkillsSize * sizeof(int));
-
-        skillSet[i].softSkills = (int*) malloc(softSkillsSize * sizeof(int));
-        memset(skillSet[i].softSkills, 0, softSkillsSize * sizeof(int));
-
-        skillSet[i].interests = (int*) malloc(interestsSize * sizeof(int));
-        memset(skillSet[i].interests, 0, interestsSize * sizeof(int));
+        skillSet[i].hardSkills = (float*) calloc(hardSkillsSize, sizeof(float));
+        skillSet[i].softSkills = (float*) calloc(softSkillsSize, sizeof(float));
+        skillSet[i].interests = (float*) calloc(interestsSize, sizeof(float));
     }
 
 
@@ -120,15 +113,15 @@ SkillSet* mapJavaObjectsToCSkillSet(JNIEnv *env, jobject arrayList3D, int *size,
 
                 if (j == 0) {
                     int index = indexOfSkillInSkillList(skillName, hardSkills, hardSkillsSize);
-                    skillSet[i].hardSkills[index] = 1;
+                    skillSet[i].hardSkills[index] = 1.0f;
                 }
                 if (j == 1) {
                     int index = indexOfSkillInSkillList(skillName, softSkills, softSkillsSize);
-                    skillSet[i].softSkills[index] = 1;
+                    skillSet[i].softSkills[index] = 1.0f;
                 }
                 if (j == 2) {
                     int index = indexOfSkillInSkillList(skillName, interests, interestsSize);
-                    skillSet[i].interests[index] = 1;
+                    skillSet[i].interests[index] = 1.0f;
                 }
 
                 (*env)->ReleaseStringUTFChars(env, jSkillName, skillName);
@@ -177,6 +170,54 @@ int* mapJavaObjectsToCIntegers(JNIEnv *env, jobject arrayList, int *size) {
     return integerArray;
 }
 
+
+void updateSumSkillSet(const int skillListSize, const float* answersSkillList, float* sumSkillList, float* skillMax) {
+    if (sumSkillList == NULL || answersSkillList == NULL) {
+        printf("MAI AJUNG AICI??\n");
+        return;
+    }
+
+    for (int j = 0; j < skillListSize; j++) {
+        if (answersSkillList[j]) {
+            sumSkillList[j] += answersSkillList[j];
+            if (*skillMax < sumSkillList[j]) *skillMax = sumSkillList[j];
+        }
+    }
+}
+
+void normalizeSkillList(float* skillList, const int skillListSize, const float skillMax) {
+    if (!skillList) return;
+
+    for (int j = 0; j < skillListSize; j++) {
+        skillList[j] /= skillMax;
+    }
+}
+
+SkillSet* obtainResultSkillSet(const SkillSet* answersSkillSet, const int size,
+                              const int hardSkillsSize, const int softSkillsSize, const int interestsSize) {
+    SkillSet* sumSkillSet = (SkillSet*) malloc(sizeof(SkillSet));
+    sumSkillSet->hardSkills = (float*) calloc(hardSkillsSize, sizeof(float));
+    sumSkillSet->softSkills = (float*) calloc(softSkillsSize, sizeof(float));
+    sumSkillSet->interests = (float*) calloc(interestsSize, sizeof(float));
+
+    float hardSkillsMax = 0.0f, softSkillsMax = 0.0f, interestsMax = 0.0f;
+
+    for (int i = 0; i < size; i++) {
+        updateSumSkillSet(hardSkillsSize, answersSkillSet[i].hardSkills,
+            sumSkillSet->hardSkills, &hardSkillsMax);
+        updateSumSkillSet(softSkillsSize, answersSkillSet[i].softSkills,
+            sumSkillSet->softSkills, &softSkillsMax);
+        updateSumSkillSet(interestsSize, answersSkillSet[i].interests,
+            sumSkillSet->interests, &interestsMax);
+    }
+
+    normalizeSkillList(sumSkillSet->hardSkills, hardSkillsSize, hardSkillsMax);
+    normalizeSkillList(sumSkillSet->softSkills, softSkillsSize, softSkillsMax);
+    normalizeSkillList(sumSkillSet->interests, interestsSize, interestsMax);
+
+    return sumSkillSet;
+}
+
 void mapJavaObjectsToCObjects(JNIEnv *env, jobject jAnswersSkillSet, jobject jCareersSkillSet,
     jobject jCareerIds, jobject jHardSkills, jobject jSoftSkills, jobject jInterests) {
     int hardSkillsSize, softSkillsSize, interestsSize, answersSkillSetSize, careersSkillSetSize, careerIdsSize;
@@ -188,6 +229,10 @@ void mapJavaObjectsToCObjects(JNIEnv *env, jobject jAnswersSkillSet, jobject jCa
     SkillSet* careersSkillSet = mapJavaObjectsToCSkillSet(env, jCareersSkillSet, &careersSkillSetSize,
         hardSkills, hardSkillsSize, softSkills, softSkillsSize, interests, interestsSize);
     int* careerIds = mapJavaObjectsToCIntegers(env, jCareerIds, &careerIdsSize);
+    
+    SkillSet* resultSkillSet = obtainResultSkillSet(answersSkillSet, answersSkillSetSize,
+        hardSkillsSize, softSkillsSize, interestsSize);
+    freeCSkillSet(answersSkillSet, answersSkillSetSize);
 
 }
 
