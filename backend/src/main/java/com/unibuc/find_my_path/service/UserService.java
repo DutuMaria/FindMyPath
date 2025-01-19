@@ -112,4 +112,11 @@ public class UserService {
 
         userRepository.save(user);
     }
+
+
+    public Boolean isAdmin(String email) {
+        FindMyPathUser user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        return user.getIsAdmin();
+    }
 }

@@ -73,7 +73,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                   ],
                 ),
                 const SizedBox(
-                  height: 40,
+                  height: 50,
                 ),
                 const Padding(
                   padding: EdgeInsets.only(left: 10),

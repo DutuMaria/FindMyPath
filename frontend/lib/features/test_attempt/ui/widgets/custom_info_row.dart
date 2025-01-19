@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/utils/custom_colors.dart';
 
 class CustomInfoRow extends StatelessWidget {
   final IconData icon;
@@ -19,7 +20,7 @@ class CustomInfoRow extends StatelessWidget {
       children: [
         Row(
           children: [
-            Icon(icon, color: Colors.blue, size: 24),
+            Icon(icon, color: CustomColors.primaryPink, size: 24),
             const SizedBox(width: 8),
             Text(
               title,
