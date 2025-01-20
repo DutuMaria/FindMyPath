@@ -27,7 +27,6 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    verifyUserRole();
 
     Completer<String> timerCompleter = Completer();
 
@@ -39,6 +38,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
     timerCompleter.future.then((token) {
       if (token.isNotEmpty) {
+        verifyUserRole();
         GlobalVariables.authToken = token;
         Navigator.pushReplacement(
           context,

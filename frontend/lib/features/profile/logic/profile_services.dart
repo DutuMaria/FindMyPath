@@ -38,8 +38,20 @@ class ProfileServices {
             final decodedBody = jsonDecode(res.body) as Map<String, dynamic>;
             userProfile = UserProfile.fromJson(decodedBody);
           });
+
+      if (userProfile.lastName.isEmpty) {
+        final body = await appPreferences.getUserInfo();
+        final decodedBody = jsonDecode(body) as Map<String, dynamic>;
+        userProfile = UserProfile.fromJson(decodedBody);
+        print(userProfile.lastName + " last name loaded from SP");
+      }
     } catch (e) {
-      showSnackBar(context, e.toString());
+      final body = await appPreferences.getUserInfo();
+      final decodedBody = jsonDecode(body) as Map<String, dynamic>;
+      userProfile = UserProfile.fromJson(decodedBody);
+
+      print(userProfile.lastName + " last name loaded from SP catch");
+      print(e.toString());
     }
 
     return userProfile;
@@ -69,8 +81,18 @@ class ProfileServices {
             userTests =
                 decodedBody.map((test) => UserTest.fromJson(test)).toList();
           });
+
+      if (userTests.isEmpty) {
+        final body = await appPreferences.getUserTests();
+        final decodedBody = jsonDecode(body) as List;
+        userTests = decodedBody.map((test) => UserTest.fromJson(test)).toList();
+        print("user tests loaded from SP");
+      }
     } catch (e) {
-      showSnackBar(context, e.toString());
+      final body = await appPreferences.getUserTests();
+      final decodedBody = jsonDecode(body) as List;
+      userTests = decodedBody.map((test) => UserTest.fromJson(test)).toList();
+      print("user tests loaded from SP catch");
     }
 
     return userTests;

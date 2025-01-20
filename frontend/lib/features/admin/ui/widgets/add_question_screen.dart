@@ -94,7 +94,7 @@ class _AddQuestionScreenState extends State<AddQuestionScreen> {
         questionText: _questionNameController.text,
         answersControllerList: _answerControllers,
         onSucces: () {
-          showSnackBar(context, "Question Edited Successfully");
+          showSnackBar(context, "Question Saved Successfully");
           Navigator.pop(context);
           widget.fetchQuestions();
         },

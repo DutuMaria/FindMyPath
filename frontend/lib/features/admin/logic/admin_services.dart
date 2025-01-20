@@ -36,8 +36,22 @@ class AdminServices {
                 .map((question) => Question.fromJson(question))
                 .toList();
           });
+
+      if (questionsList.isEmpty) {
+        final body = await appPreferences.getQuestions();
+        final decodedBody = jsonDecode(body) as List;
+        questionsList =
+            decodedBody.map((question) => Question.fromJson(question)).toList();
+
+        print("questions loaded from SP");
+      }
     } catch (e) {
-      showSnackBar(context, e.toString());
+      final body = await appPreferences.getQuestions();
+      final decodedBody = jsonDecode(body) as List;
+      questionsList =
+          decodedBody.map((question) => Question.fromJson(question)).toList();
+
+      print("questions loaded from SP catch");
     }
 
     return questionsList;
@@ -68,7 +82,7 @@ class AdminServices {
             onSuccess();
           });
     } catch (e) {
-      showSnackBar(context, e.toString());
+      print(e.toString());
     }
   }
 
@@ -124,7 +138,7 @@ class AdminServices {
                 });
           });
     } catch (e) {
-      showSnackBar(context, e.toString());
+      print(e.toString());
     }
   }
 
@@ -171,7 +185,7 @@ class AdminServices {
             onSucces();
           });
     } catch (e) {
-      showSnackBar(context, e.toString());
+      print(e.toString());
     }
   }
 
@@ -191,6 +205,8 @@ class AdminServices {
         },
       );
 
+      print(res.body + "aaaa");
+
       httpErrorHandle(
         response: res,
         context: context,
@@ -199,9 +215,9 @@ class AdminServices {
         },
       );
     } catch (e) {
-      showSnackBar(context, e.toString());
+      print(e.toString());
     }
-
+    print(isAdmin.toString() + "aaaa");
     return isAdmin;
   }
 }

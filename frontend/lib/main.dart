@@ -2,9 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:frontend/features/admin/ui/admin_home.dart';
-import 'package:frontend/features/auth/ui/log_in_screen.dart';
-import 'package:frontend/features/auth/ui/sign_up_screen.dart';
 import 'package:frontend/features/splash_screen/splash_screen.dart';
 import 'package:frontend/utils/custom_colors.dart';
 import 'package:frontend/utils/service_locator.dart';
