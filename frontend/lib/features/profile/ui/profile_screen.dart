@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:frontend/features/profile/ui/widgets/education_tile.dart';
 import 'package:frontend/features/profile/ui/widgets/generate_cv.dart';
@@ -5,8 +7,10 @@ import 'package:frontend/features/profile/ui/widgets/section_header.dart';
 import 'package:frontend/features/profile/ui/widgets/test_history_tile.dart';
 import 'package:frontend/features/profile/ui/widgets/personal_info_tile.dart';
 import 'package:frontend/features/profile/logic/profile_services.dart';
+import 'package:frontend/local_storage/storage_service.dart';
 import 'package:frontend/models/user_profile.dart';
 import 'package:frontend/models/user_test.dart';
+import 'package:frontend/utils/service_locator.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -29,6 +33,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   fetchUserProfile() async {
     userProfile = await profileServices.fetchUserProfile(context: context);
+    print(userProfile.lastName + "from fetchUserProfile");
+    if (userProfile.lastName.isEmpty) {
+      final localPreferences = serviceLocator<LocalPreferences>();
+      final body = await localPreferences.getUserInfo();
+      final decodedBody = jsonDecode(body) as Map<String, dynamic>;
+      userProfile = UserProfile.fromJson(decodedBody);
+    }
+
     if (mounted) setState(() {});
   }
 
@@ -40,14 +52,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: CustomAppBar(
-      //   title: '',
-      //   leadingIcon: CustomBackButton(
-      //     callback: () {
-      //       Navigator.of(context).pop();
-      //     },
-      //   ),
-      // ),
       body: Stack(
         children: [
           Container(

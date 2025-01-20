@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:frontend/features/auth/ui/sign_up_screen.dart';
 import 'package:frontend/features/auth/ui/widgets/custom_text_form_input.dart';
 import 'package:frontend/features/dashboard/ui/dashboard_screen.dart';
+import 'package:frontend/features/profile/logic/profile_services.dart';
+import 'package:frontend/features/test_attempt/logic/test_attempt_services.dart';
 import 'package:frontend/utils/logo_image.dart';
 
 import '../../../models/auth.dart';
@@ -45,6 +47,10 @@ class _LogInScreenState extends State<LogInScreen> {
       context: context,
       model: loginRequest,
       onSuccess: () {
+        AuthService().saveQuestions(context: context);
+        AuthService().saveUserInfo(context: context);
+        AuthService().saveUserTests(context: context);
+        AuthService().saveRatingsSummary(context: context);
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(

@@ -37,9 +37,9 @@ class TestAttemptServices {
       );
     } catch (e) {
       print(e.toString());
-      showSnackBar(context, e.toString());
     }
 
+    print("$testAttemptId from startTest");
     return testAttemptId;
   }
 
@@ -50,7 +50,11 @@ class TestAttemptServices {
   }) async {
     final appPreferences = serviceLocator<LocalPreferences>();
     String token = await appPreferences.getAuthToken();
+    if (testId == -1) {
+      testId = 178;
+    }
     print(answersIdList);
+    print("$testId from submitTest");
     try {
       http.Response res = await http.post(
         Uri.parse(
@@ -74,7 +78,6 @@ class TestAttemptServices {
       );
     } catch (e) {
       print(e.toString());
-      showSnackBar(context, e.toString());
     }
   }
 
@@ -85,6 +88,10 @@ class TestAttemptServices {
   }) async {
     final appPreferences = serviceLocator<LocalPreferences>();
     String token = await appPreferences.getAuthToken();
+    if (testId == -1) {
+      testId = 178;
+    }
+    print("$testId from submitTest");
 
     try {
       http.Response res = await http.put(
@@ -102,7 +109,7 @@ class TestAttemptServices {
         onSucces: () {},
       );
     } catch (e) {
-      showSnackBar(context, e.toString());
+      print(e.toString());
     }
   }
 
@@ -130,8 +137,18 @@ class TestAttemptServices {
           ratings = SumOfRatings.fromJson(decodedBody);
         },
       );
+
+      if (ratings == null) {
+        final body = await appPreferences.getRatingsSummary();
+        final decodedBody = jsonDecode(body);
+        ratings = SumOfRatings.fromJson(decodedBody);
+        print("ratings summary loaded from SP");
+      }
     } catch (e) {
-      showSnackBar(context, e.toString());
+      final body = await appPreferences.getRatingsSummary();
+      final decodedBody = jsonDecode(body);
+      ratings = SumOfRatings.fromJson(decodedBody);
+      print("ratings summary loaded from SP catch");
     }
 
     return ratings;
@@ -164,7 +181,7 @@ class TestAttemptServices {
         },
       );
     } catch (e) {
-      showSnackBar(context, e.toString());
+      print(e.toString());
     }
     return hasTestAttemptInProgress;
   }

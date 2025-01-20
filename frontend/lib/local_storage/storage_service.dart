@@ -12,4 +12,20 @@ abstract class LocalPreferences {
   Future<Map<int, int>> getUserAnswers();
 
   Future<void> clearUserAnswers();
+
+  Future saveQuestions(String token);
+  Future<String> getQuestions();
+  Future<void> clearQuestions();
+
+  Future saveUserInfo(String token);
+  Future<String> getUserInfo();
+  Future<void> clearUserInfo();
+
+  Future saveUserTests(String token);
+  Future<String> getUserTests();
+  Future<void> clearUserTests();
+
+  Future saveRatingsSummary(String token);
+  Future<String> getRatingsSummary();
+  Future<void> clearRatingsSummary();
 }

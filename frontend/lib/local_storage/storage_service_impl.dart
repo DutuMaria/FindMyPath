@@ -6,6 +6,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 class LocalPreferencesImpl implements LocalPreferences {
   static const sharedPrefAuthTokenKey = 'auth_token_key';
   static const sharedPrefUserIdKey = 'auth_user_id_key';
+  static const sharedPrefQuestionsKey = 'questions_key';
+  static const sharedPrefUserInfoKey = 'user_info_key';
+  static const sharedPrefUserTestsKey = 'user_tests_key';
+  static const sharedPrefRatingsSummaryKey = 'ratings_summary_key';
 
   @override
   Future<String> getAuthToken() async {
@@ -67,5 +71,69 @@ class LocalPreferencesImpl implements LocalPreferences {
   Future<void> clearUserAnswers() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove('userAnswers');
+  }
+
+  @override
+  Future<void> clearQuestions() async {
+    saveQuestions('');
+  }
+
+  @override
+  Future<String> getQuestions() async {
+    String data = await _getStringFromPreferences(sharedPrefQuestionsKey);
+    return data;
+  }
+
+  @override
+  Future saveQuestions(String token) {
+    return _saveStringToPreferences(sharedPrefQuestionsKey, token);
+  }
+
+  @override
+  Future<void> clearUserInfo() async {
+    saveUserInfo('');
+  }
+
+  @override
+  Future<String> getUserInfo() async {
+    String data = await _getStringFromPreferences(sharedPrefUserInfoKey);
+    return data;
+  }
+
+  @override
+  Future saveUserInfo(String token) {
+    return _saveStringToPreferences(sharedPrefUserInfoKey, token);
+  }
+
+  @override
+  Future<void> clearUserTests() async {
+    saveUserTests('');
+  }
+
+  @override
+  Future<String> getUserTests() async {
+    String data = await _getStringFromPreferences(sharedPrefUserTestsKey);
+    return data;
+  }
+
+  @override
+  Future saveUserTests(String token) {
+    return _saveStringToPreferences(sharedPrefUserTestsKey, token);
+  }
+
+  @override
+  Future<void> clearRatingsSummary() async {
+    saveRatingsSummary('');
+  }
+
+  @override
+  Future<String> getRatingsSummary() async {
+    String data = await _getStringFromPreferences(sharedPrefRatingsSummaryKey);
+    return data;
+  }
+
+  @override
+  Future saveRatingsSummary(String token) {
+    return _saveStringToPreferences(sharedPrefRatingsSummaryKey, token);
   }
 }

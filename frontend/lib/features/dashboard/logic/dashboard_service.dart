@@ -24,7 +24,7 @@ class DashboardService {
         onSucces: onSuccess,
       );
     } catch (e) {
-      // Handle error (e.g., showSnackBar)
+      print(e.toString());
     }
   }
 }
