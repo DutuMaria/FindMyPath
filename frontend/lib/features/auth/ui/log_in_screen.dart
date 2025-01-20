@@ -51,6 +51,7 @@ class _LogInScreenState extends State<LogInScreen> {
         AuthService().saveUserInfo(context: context);
         AuthService().saveUserTests(context: context);
         AuthService().saveRatingsSummary(context: context);
+        AuthService().saveDefaultTest(context: context);
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(

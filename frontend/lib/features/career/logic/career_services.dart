@@ -35,7 +35,20 @@ class CareerServices {
             careers =
                 decodedBody.map((career) => Career.fromJson(career)).toList();
           });
+      print(careers.length);
+      if (careers.isEmpty) {
+        final body = await appPreferences.getTestResults();
+        print(body);
+
+        final decodedBody = jsonDecode(body) as List;
+        careers = decodedBody.map((career) => Career.fromJson(career)).toList();
+      }
     } catch (e) {
+      final body = await appPreferences.getTestResults();
+
+      final decodedBody = jsonDecode(body) as List;
+      careers = decodedBody.map((career) => Career.fromJson(career)).toList();
+
       showSnackBar(context, e.toString());
     }
 

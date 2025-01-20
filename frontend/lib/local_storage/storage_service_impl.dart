@@ -10,6 +10,7 @@ class LocalPreferencesImpl implements LocalPreferences {
   static const sharedPrefUserInfoKey = 'user_info_key';
   static const sharedPrefUserTestsKey = 'user_tests_key';
   static const sharedPrefRatingsSummaryKey = 'ratings_summary_key';
+  static const sharedPrefTestResultsKey = 'test_results_key';
 
   @override
   Future<String> getAuthToken() async {
@@ -135,5 +136,21 @@ class LocalPreferencesImpl implements LocalPreferences {
   @override
   Future saveRatingsSummary(String token) {
     return _saveStringToPreferences(sharedPrefRatingsSummaryKey, token);
+  }
+
+  @override
+  Future<void> clearTestResults() async {
+    saveTestResults('');
+  }
+
+  @override
+  Future<String> getTestResults() async {
+    String data = await _getStringFromPreferences(sharedPrefTestResultsKey);
+    return data;
+  }
+
+  @override
+  Future saveTestResults(String token) {
+    return _saveStringToPreferences(sharedPrefTestResultsKey, token);
   }
 }

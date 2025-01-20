@@ -28,4 +28,8 @@ abstract class LocalPreferences {
   Future saveRatingsSummary(String token);
   Future<String> getRatingsSummary();
   Future<void> clearRatingsSummary();
+
+  Future saveTestResults(String token);
+  Future<String> getTestResults();
+  Future<void> clearTestResults();
 }

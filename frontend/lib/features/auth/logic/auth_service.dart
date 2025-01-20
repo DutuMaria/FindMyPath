@@ -159,6 +159,69 @@ class AuthService {
     }
   }
 
+  Future<void> saveDefaultTest({
+    required BuildContext context,
+  }) async {
+    final localPreferences = serviceLocator<LocalPreferences>();
+    String body = '''
+[
+    {
+        "careerId": 1,
+        "title": "Software Engineer",
+        "description": "Develops, tests, and maintains software applications for various platforms.",
+        "industry": "Technology",
+        "salaryRange": "\$80,000 - \$150,000",
+        "experienceLevel": "Mid-Level",
+        "requiredSoftSkills": null,
+        "requiredHardSkills": null
+    },
+    {
+        "careerId": 3,
+        "title": "Financial Analyst",
+        "description": "Analyzes financial data to help companies make investment and business decisions.",
+        "industry": "Finance",
+        "salaryRange": "\$60,000 - \$110,000\n",
+        "experienceLevel": "Mid-Level",
+        "requiredSoftSkills": null,
+        "requiredHardSkills": null
+    },
+    {
+        "careerId": 4,
+        "title": "Journalist",
+        "description": "Researches and writes news stories for print, online, or broadcast media.",
+        "industry": "Media / Journalism",
+        "salaryRange": "\$40,000 - \$75,000",
+        "experienceLevel": "Mid-Level",
+        "requiredSoftSkills": null,
+        "requiredHardSkills": null
+    },
+    {
+        "careerId": 5,
+        "title": "Travel Consultant",
+        "description": "Advises clients on travel options, bookings, and personalized itineraries.",
+        "industry": "Travel / Hospitality",
+        "salaryRange": "\$45,000 - \$75,000",
+        "experienceLevel": "Mid-Level",
+        "requiredSoftSkills": null,
+        "requiredHardSkills": null
+    },
+    {
+        "careerId": 6,
+        "title": "Game Developer",
+        "description": "Designs, develops, and programs video games across platforms, working on gameplay mechanics, graphics, and interactive elements.",
+        "industry": "Video Games / Entertainment",
+        "salaryRange": "\$50,000 - \$120,000",
+        "experienceLevel": "Mid-Level",
+        "requiredSoftSkills": null,
+        "requiredHardSkills": null
+    }
+]
+''';
+
+    await localPreferences.saveTestResults(body);
+    print("res.body default test from SP");
+  }
+
   Future<SumOfRatings?> saveRatingsSummary({
     required BuildContext context,
   }) async {
