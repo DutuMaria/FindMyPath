@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/features/career/ui/career_screen.dart';
 import 'package:frontend/features/profile/ui/widgets/test_button.dart';
 import 'package:intl/intl.dart';
 import 'package:frontend/models/user_test.dart';
@@ -50,7 +51,18 @@ class TestHistoryTile extends StatelessWidget {
                             ),
                             TestButton(
                               text: test.isCompleted ? 'View' : 'Continue',
-                              onPressed: () => {},
+                              onPressed: test.isCompleted
+                                  ? () => {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => CareerScreen(
+                                                testAttemptId:
+                                                    test.testAttemptId),
+                                          ),
+                                        )
+                                      }
+                                  : () => {},
                             ),
                           ],
                         )
