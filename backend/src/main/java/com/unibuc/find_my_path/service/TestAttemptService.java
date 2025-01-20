@@ -1,5 +1,12 @@
 package com.unibuc.find_my_path.service;
 
+import com.unibuc.find_my_path.dto.AnswerIdListDto;
+import com.unibuc.find_my_path.dto.TestAttemptRequestDto;
+import com.unibuc.find_my_path.dto.TestAttemptResponseDto;
+import com.unibuc.find_my_path.dto.TestResultRatingRequestDto;
+import com.unibuc.find_my_path.model.*;
+import com.unibuc.find_my_path.repository.*;
+import com.unibuc.find_my_path.utils.Utils;
 import com.unibuc.find_my_path.dto.*;
 import com.unibuc.find_my_path.model.Answer;
 import com.unibuc.find_my_path.model.FindMyPathUser;
@@ -12,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -23,6 +31,11 @@ public class TestAttemptService {
     private final TestAttemptRepository testAttemptRepository;
     private final FindMyPathUserRepository findMyPathUserRepository;
     private final AnswerRepository answerRepository;
+
+    private final CareerService careerService;
+    private final HardSkillService hardSkillService;
+    private final SoftSkillService softSkillService;
+    private final InterestService interestService;
 
     public TestAttemptResponseDto getTestAttemptById(long testAttemptId) {
         Optional<TestAttempt> testAttemptOptional = testAttemptRepository.findById(testAttemptId);
@@ -199,4 +212,36 @@ public class TestAttemptService {
 
         return response;
     }
+
+    private ArrayList<Long> processTestResults(long testAttemptId) {
+        Optional<TestAttempt> testAttemptOptional = testAttemptRepository.findById(testAttemptId);
+        if (testAttemptOptional.isEmpty()) {
+            throw new EntityNotFoundException("Test attempt with id " + testAttemptId + " not found.");
+        }
+
+        ArrayList<ArrayList<ArrayList<String>>> answersSkillSet, careersSkillSet;
+        answersSkillSet = getTestAttemptAnswersSkillSet(testAttemptOptional.get());
+        careersSkillSet = careerService.getCareersSkillSet();
+        ArrayList<Long> careerIds = careerService.getCareerIds();
+        ArrayList<String> hardSkills = hardSkillService.getAllHardSkillNames();
+        ArrayList<String> softSkills = softSkillService.getAllSoftSkillNames();
+        ArrayList<String> interests = interestService.getAllInterestNames();
+
+        return Utils.executeCareerTest(answersSkillSet, careersSkillSet, careerIds, hardSkills, softSkills, interests);
+    }
+
+    public List<CareerDetailsResponseDto> getTestResults(long testAttemptId) {
+        ArrayList<Long> careerIds = processTestResults(testAttemptId);
+        return careerService.getCareerResults(careerIds);
+    }
+
+    public ArrayList<ArrayList<ArrayList<String>>> getTestAttemptAnswersSkillSet(TestAttempt testAttempt) {
+        return testAttempt.getAnswerList().stream()
+                .map(answer -> Utils.processSkillLists(
+                        answer.getHardSkillList(),
+                        answer.getSoftSkillList(),
+                        answer.getInterestList()))
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
 }

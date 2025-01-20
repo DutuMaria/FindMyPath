@@ -23,4 +23,10 @@ public class Interest {
 
     @ManyToMany(mappedBy = "interestList")
     private List<Result> resultList;
+
+    @ManyToMany(mappedBy = "interestList")
+    private List<Career> careerList;
+
+    @ManyToMany(mappedBy = "interestList")
+    private List<Answer> answerList;
 }

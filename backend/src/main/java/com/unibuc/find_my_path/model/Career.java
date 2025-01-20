@@ -44,4 +44,12 @@ public class Career {
             inverseJoinColumns = @JoinColumn(name = "hard_skill_id")
     )
     private List<HardSkill> hardSkillList;
+
+    @ManyToMany
+    @JoinTable(
+            name = "required_interests",
+            joinColumns = @JoinColumn(name = "career_id"),
+            inverseJoinColumns = @JoinColumn(name = "interest_id")
+    )
+    private List<Interest> interestList;
 }

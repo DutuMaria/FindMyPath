@@ -26,4 +26,7 @@ public class SoftSkill {
 
     @ManyToMany(mappedBy = "softSkillList")
     private List<Career> careerList;
+
+    @ManyToMany(mappedBy = "softSkillList")
+    private List<Answer> answerList;
 }

@@ -88,4 +88,12 @@ public class TestAttemptController {
                 .status(HttpStatus.OK)
                 .body(response);
     }
+
+    @PostMapping("/process-results/{testAttemptId}")
+    public ResponseEntity<List<CareerDetailsResponseDto>> processTestResults(@PathVariable Long testAttemptId) {
+        List<CareerDetailsResponseDto> response = testAttemptService.getTestResults(testAttemptId);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(response);
+    }
 }
